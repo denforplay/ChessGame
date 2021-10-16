@@ -7,15 +7,15 @@ namespace ChessLib.Models
     /// </summary>
     public class ChessPosition
     {
-        private char _horizontal;
+        private int _horizontal;
         private int _vertical;
 
         /// <summary>
         /// Chess position constructor
         /// </summary>
-        /// <param name="horizontalPosition"></param>
-        /// <param name="verticalPosition"></param>
-        public ChessPosition(char horizontalPosition, int verticalPosition)
+        /// <param name="horizontalPosition">Horizontal position</param>
+        /// <param name="verticalPosition">Vertical position</param>
+        public ChessPosition(int horizontalPosition, int verticalPosition)
         {
             Vertical = verticalPosition;
             Horizontal = horizontalPosition;
@@ -24,12 +24,12 @@ namespace ChessLib.Models
         /// <summary>
         /// Represents horizontal position coordinate
         /// </summary>
-        public char Horizontal
+        public int Horizontal
         {
             get => _horizontal;
             set
             {
-                if (Char.ToLower(value) >= 'a' || Char.ToLower(value) <= 'h')
+                if (value < 1 || value > 8)
                 {
                     throw new ArgumentOutOfRangeException(nameof(value), "Chess figure can't be out of the board");
                 }

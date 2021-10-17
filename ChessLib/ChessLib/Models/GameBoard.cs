@@ -18,7 +18,8 @@
 
         public void MoveChess(ChessPosition fromPositionChess, ChessPosition toPosition)
         {
-            CurrentTurnPlayer.TakeChessFigure(fromPositionChess).Move(toPosition, this);
+            CurrentTurnPlayer.TakeChessFigure(fromPositionChess);
+            CurrentTurnPlayer.MoveChess(toPosition, this);
         }
 
         private void InitializeBoardCells()

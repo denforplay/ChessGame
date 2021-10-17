@@ -9,7 +9,7 @@ namespace ChessLib.Models
         private ChessBase _chess;
 
         public ChessPosition ChessPosition => _chessPosition;
-
+        public ChessBase Chess => _chess;
         public BoardCell(ChessPosition chessPosition, ChessBase chess)
         {
             _chessPosition = chessPosition;

@@ -18,23 +18,23 @@ namespace ChessLib.Models.Figures
             {
                 case ChessColor.White:
                     {
-                        nextSteps.Add(new ChessPosition(CurrentPosition.Horizontal, CurrentPosition.Vertical + 1));
+                        if (gameBoard.BoardCells[CurrentPosition.Horizontal - 1, CurrentPosition.Vertical].Chess is null)
+                            nextSteps.Add(new ChessPosition(CurrentPosition.Horizontal, CurrentPosition.Vertical + 1));
 
-                        if (_isFirstStep)
+                        if (_isFirstStep && gameBoard.BoardCells[CurrentPosition.Horizontal - 1, CurrentPosition.Vertical + 1].Chess is null)
                         {
-                            nextSteps.Add(new ChessPosition(CurrentPosition.Horizontal, CurrentPosition.Vertical + 2));
-                            _isFirstStep = false;
+                             nextSteps.Add(new ChessPosition(CurrentPosition.Horizontal, CurrentPosition.Vertical + 2));
                         }
                     }
                     break;
                 case ChessColor.Black:
                     {
-                        nextSteps.Add(new ChessPosition(CurrentPosition.Horizontal, CurrentPosition.Vertical - 1));
+                        if (gameBoard.BoardCells[CurrentPosition.Horizontal - 1, CurrentPosition.Vertical - 2].Chess is null)
+                            nextSteps.Add(new ChessPosition(CurrentPosition.Horizontal, CurrentPosition.Vertical - 1));
 
-                        if (_isFirstStep)
+                        if (_isFirstStep && gameBoard.BoardCells[CurrentPosition.Horizontal - 1, CurrentPosition.Vertical - 3].Chess is null)
                         {
                             nextSteps.Add(new ChessPosition(CurrentPosition.Horizontal, CurrentPosition.Vertical - 2));
-                            _isFirstStep = false;
                         }
                     }
                     break;
@@ -47,8 +47,11 @@ namespace ChessLib.Models.Figures
         {
             if (GetPossibleSteps(gameBoard).Contains(nextPosition))
             {
+                if (_isFirstStep)
+                    _isFirstStep = false;
                 gameBoard.BoardCells[CurrentPosition.Horizontal - 1, CurrentPosition.Vertical - 1].SetChess(null);
                 gameBoard.BoardCells[nextPosition.Horizontal - 1, nextPosition.Vertical - 1].SetChess(this);
+                CurrentPosition = nextPosition;
             }
         }
     }

@@ -41,7 +41,15 @@ namespace ChessLib.Models.Figures
         /// Chess move method
         /// </summary>
         /// <param name="chessPosition">Where move chess position</param>
-        public abstract void Move(ChessPosition nextPosition, GameBoard gameBoard);
+        public virtual void Move(ChessPosition nextPosition, GameBoard gameBoard)
+        {
+            if (GetPossibleSteps(gameBoard).Contains(nextPosition))
+            {
+                gameBoard.BoardCells[CurrentPosition.Horizontal - 1, CurrentPosition.Vertical - 1].SetChess(null);
+                gameBoard.BoardCells[nextPosition.Horizontal - 1, nextPosition.Vertical - 1].SetChess(this);
+                CurrentPosition = nextPosition;
+            }
+        }
 
         /// <summary>
         /// Method to get all possible steps for chess

@@ -46,15 +46,5 @@ namespace ChessLib.Models.Figures
 
             return nextSteps;
         }
-
-        public override void Move(ChessPosition nextPosition, GameBoard gameBoard)
-        {
-            if (GetPossibleSteps(gameBoard).Contains(nextPosition))
-            {
-                gameBoard.BoardCells[CurrentPosition.Horizontal - 1, CurrentPosition.Vertical - 1].SetChess(null);
-                gameBoard.BoardCells[nextPosition.Horizontal - 1, nextPosition.Vertical - 1].SetChess(this);
-                CurrentPosition = nextPosition;
-            }
-        }
     }
 }

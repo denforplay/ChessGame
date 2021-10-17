@@ -42,7 +42,7 @@ namespace ChessLib.Models
 
         public override string ToString()
         {
-            return $"{_chessPosition}\n{_chess}";
+            return $"{_chessPosition} {_chess}";
         }
     }
 }

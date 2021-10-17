@@ -54,6 +54,9 @@ namespace ChessLib.Models
                         _chesses.Add(castle2);
                         gameBoard.BoardCells[0, 0].SetChess(castle1);
                         gameBoard.BoardCells[gameBoard.BOARD_SIZE - 1, 0].SetChess(castle2);
+                        ChessBase bishop1 = new Bishop(gameBoard.BoardCells[1, 0].ChessPosition, _playerChessColor);
+                        _chesses.Add(bishop1);
+                        gameBoard.BoardCells[1, 0].SetChess(bishop1);
                     }
                     break;
                 case ChessColor.Black:
@@ -66,11 +69,12 @@ namespace ChessLib.Models
                         }
 
                         ChessBase castle1 = new Castle(gameBoard.BoardCells[0, 7].ChessPosition, _playerChessColor);
-                        ChessBase castle2 = new Castle(gameBoard.BoardCells[gameBoard.BOARD_SIZE - 1, gameBoard.BOARD_SIZE - 1].ChessPosition, _playerChessColor);
                         _chesses.Add(castle1);
-                        _chesses.Add(castle2);
                         gameBoard.BoardCells[0, 7].SetChess(castle1);
+                        ChessBase castle2 = new Castle(gameBoard.BoardCells[gameBoard.BOARD_SIZE - 1, gameBoard.BOARD_SIZE - 1].ChessPosition, _playerChessColor);
+                        _chesses.Add(castle2);
                         gameBoard.BoardCells[gameBoard.BOARD_SIZE - 1, gameBoard.BOARD_SIZE - 1].SetChess(castle2);
+
                     }
                     break;
             }

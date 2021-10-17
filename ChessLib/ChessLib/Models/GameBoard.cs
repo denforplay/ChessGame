@@ -20,6 +20,7 @@
         {
             CurrentTurnPlayer.TakeChessFigure(fromPositionChess);
             CurrentTurnPlayer.MoveChess(toPosition, this);
+            CurrentTurnPlayer = CurrentTurnPlayer == FirstPlayer ? SecondPlayer : FirstPlayer;
         }
 
         private void InitializeBoardCells()

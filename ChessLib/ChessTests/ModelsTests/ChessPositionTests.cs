@@ -16,9 +16,8 @@ namespace ChessTests.ModelsTests
         {
             GameBoard _gameBoard = new GameBoard();
             _gameBoard.MoveChess(new ChessPosition(1, 2), new ChessPosition(1, 4));
+            _gameBoard.MoveChess(new ChessPosition(6, 7), new ChessPosition(6, 5));
             _gameBoard.MoveChess(new ChessPosition(1, 4), new ChessPosition(1, 5));
-            _gameBoard.MoveChess(new ChessPosition(1, 5), new ChessPosition(1, 6));
-            _gameBoard.MoveChess(new ChessPosition(1, 1), new ChessPosition(1, 5));
         }
     }
 }

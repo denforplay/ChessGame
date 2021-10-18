@@ -85,9 +85,9 @@ namespace ChessLib.Models
         }
 
         /// <summary>
-        /// Method that return obje
+        /// Returns a string that represents chess position.
         /// </summary>
-        /// <returns>Return </returns>
+        /// <returns>A string that represents chess position</returns>
         public override string ToString()
         {
             return $"X: {Horizontal}, Y: {Vertical}";

@@ -1,15 +1,25 @@
 ﻿namespace ChessLib.Models
 {
+    /// <summary>
+    /// Represents game board
+    /// </summary>
     public class GameBoard
     {
         public readonly int BOARD_SIZE = 8;
 
         private BoardCell[,] _boardCells;
-        private Player FirstPlayer;
-        private Player SecondPlayer;
-        private Player CurrentTurnPlayer;
+        private ChessPlayer FirstPlayer;
+        private ChessPlayer SecondPlayer;
+        private ChessPlayer CurrentTurnPlayer;
+
+        /// <summary>
+        /// All board cells
+        /// </summary>
         public BoardCell[,] BoardCells => _boardCells;
 
+        /// <summary>
+        /// Gameboard constructor
+        /// </summary>
         public GameBoard()
         {
             InitializeBoardCells();
@@ -23,6 +33,9 @@
             CurrentTurnPlayer = CurrentTurnPlayer == FirstPlayer ? SecondPlayer : FirstPlayer;
         }
 
+        /// <summary>
+        /// Intialize board cells
+        /// </summary>
         private void InitializeBoardCells()
         {
             _boardCells = new BoardCell[BOARD_SIZE, BOARD_SIZE];
@@ -37,10 +50,13 @@
             }
         }
         
+        /// <summary>
+        /// Initialize players by chess figures depends on figures colors
+        /// </summary>
         private void InitializePlayers()
         {
-            FirstPlayer = new Player(ChessColor.White);
-            SecondPlayer = new Player(ChessColor.Black);
+            FirstPlayer = new ChessPlayer(ChessColor.White);
+            SecondPlayer = new ChessPlayer(ChessColor.Black);
             FirstPlayer.Initialize(this);
             SecondPlayer.Initialize(this);
             CurrentTurnPlayer = FirstPlayer;

@@ -10,8 +10,14 @@ namespace ChessLib.Models.Figures
         private ChessColor _chessColor;
         private ChessPosition _currentChessPosition;
 
+        /// <summary>
+        /// Represents current chess color.
+        /// </summary>
         public ChessColor ChessColor => _chessColor;
 
+        /// <summary>
+        /// Represents current chess position.
+        /// </summary>
         public ChessPosition CurrentPosition
         {
             get

@@ -12,13 +12,13 @@ namespace ChessLib.Models.Figures
 
         public override List<ChessPosition> GetPossibleSteps(GameBoard gameBoard)
         {
-            Vector2[] directions =
-               {
-            new Vector2(-1, 1),
-            new Vector2(1, 1),
-            new Vector2(1, -1),
-            new Vector2(-1, -1)
-              };
+            Vector2[] directions = new Vector2[]
+            {
+                 new Vector2(-1, 1),
+                 new Vector2(1, 1),
+                 new Vector2(1, -1),
+                 new Vector2(-1, -1)
+            };
 
             List<ChessPosition> nextSteps = new List<ChessPosition>();
 
@@ -33,11 +33,11 @@ namespace ChessLib.Models.Figures
                         nextPosition.Horizontal += (int)directions[i].X;
                         nextPosition.Vertical += (int)directions[i].Y;
                     }
-                    catch
+                    catch (ArgumentException ex)
                     {
                         break;
                     }
-                    
+
                     if (gameBoard.BoardCells[nextPosition.Horizontal - 1, nextPosition.Vertical - 1].Chess is null)
                         nextSteps.Add(new ChessPosition(nextPosition.Horizontal, nextPosition.Vertical));
                     else break;

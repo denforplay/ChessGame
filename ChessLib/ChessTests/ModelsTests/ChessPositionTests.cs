@@ -14,30 +14,22 @@ namespace ChessTests.ModelsTests
         [Fact]
         public void GameBoard_TestPawnMovements_ReturnsTrue()
         {
-            GameBoard _gameBoard = new GameBoard();
-            _gameBoard.MoveChess(new ChessPosition(2, 2), new ChessPosition(2, 4));
-            _gameBoard.MoveChess(new ChessPosition(3, 7), new ChessPosition(3, 5));
-            _gameBoard.MoveChess(new ChessPosition(4, 2), new ChessPosition(4, 4));
-            _gameBoard.MoveChess(new ChessPosition(3, 5), new ChessPosition(4, 4));
+            ChessGame game = new ChessGame();
+            game.MakeStep(new ChessPosition(2, 2), new ChessPosition(2, 4));
+            game.MakeStep(new ChessPosition(3, 7), new ChessPosition(3, 5));
+            game.MakeStep(new ChessPosition(4, 2), new ChessPosition(4, 4));
+            game.MakeStep(new ChessPosition(3, 5), new ChessPosition(4, 4));
         }
 
         [Fact]
         public void CreateChessPosition_WithVerticalOutOfZone_ThrowArgumentException()
         {
-            GameBoard _gameBoard = new GameBoard();
-            _gameBoard.MoveChess(new ChessPosition(1, 2), new ChessPosition(1, 3));
-            _gameBoard.MoveChess(new ChessPosition(1, 7), new ChessPosition(1, 6));
-            _gameBoard.MoveChess(new ChessPosition(3, 2), new ChessPosition(3, 4));
-            _gameBoard.MoveChess(new ChessPosition(7, 7), new ChessPosition(7, 6));
-            _gameBoard.MoveChess(new ChessPosition(2, 1), new ChessPosition(5, 4));
-            _gameBoard.MoveChess(new ChessPosition(6, 7), new ChessPosition(6, 5));
-            _gameBoard.MoveChess(new ChessPosition(6, 2), new ChessPosition(6, 3));
-            _gameBoard.MoveChess(new ChessPosition(6, 5), new ChessPosition(6, 4));
-            _gameBoard.MoveChess(new ChessPosition(5, 4), new ChessPosition(3, 6));
-            _gameBoard.MoveChess(new ChessPosition(3, 8), new ChessPosition(4, 6));
-            _gameBoard.MoveChess(new ChessPosition(1, 1), new ChessPosition(1, 2));
-            _gameBoard.MoveChess(new ChessPosition(7, 6), new ChessPosition(7, 5));
-            _gameBoard.MoveChess(new ChessPosition(4, 1), new ChessPosition(3, 3));
+            ChessGame game = new ChessGame();
+            game.MakeStep(new ChessPosition(1, 2), new ChessPosition(1, 3));
+            game.MakeStep(new ChessPosition(8, 7), new ChessPosition(8, 6));
+            game.MakeStep(new ChessPosition(5, 2), new ChessPosition(5, 4));
+            game.MakeStep(new ChessPosition(8, 6), new ChessPosition(8, 5));
+            game.MakeStep(new ChessPosition(5, 1), new ChessPosition(5, 2));
         }
     }
 }

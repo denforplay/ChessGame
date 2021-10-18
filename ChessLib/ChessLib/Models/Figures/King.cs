@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
 
 namespace ChessLib.Models.Figures
 {
-    public class Knight : ChessBase
+    public class King : ChessBase
     {
-        public Knight(ChessPosition startPosition, ChessColor color) : base(startPosition, color)
+        public King(ChessPosition startPosition, ChessColor color) : base(startPosition, color)
         {
         }
 
@@ -14,12 +14,25 @@ namespace ChessLib.Models.Figures
         {
             Vector2[] directions = new Vector2[]
             {
-                 new Vector2(1, 2),
-                 new Vector2(1, -2),
-                 new Vector2(-1, 2),
-                 new Vector2(-1, -2)
+                 new Vector2(0, 1),
+                 new Vector2(1, 1),
+                 new Vector2(1, 0),
+                 new Vector2(1, -1),
+                 new Vector2(0, -1),
+                 new Vector2(-1, -1),
+                 new Vector2(-1, 0),
+                 new Vector2(-1, 1)
             };
 
+            List<ChessBase> enemyChesses = gameBoard.GetAllOponentChesses(ChessColor == ChessColor.White ? ChessColor.Black : ChessColor.White);
+            IEnumerable<ChessPosition> enemyChessesPossibleSteps = new List<ChessPosition>();
+            foreach (var chess in enemyChesses)
+            {
+                if (chess is not King)
+                {
+                    enemyChessesPossibleSteps = enemyChessesPossibleSteps.Concat(chess.GetPossibleSteps(gameBoard));
+                }
+            }
             List<ChessPosition> nextSteps = new List<ChessPosition>();
 
             for (int i = 0; i < directions.Length; i++)
@@ -31,6 +44,9 @@ namespace ChessLib.Models.Figures
 
                 nextPosition.Horizontal += (int)directions[i].X;
                 nextPosition.Vertical += (int)directions[i].Y;
+
+                if (enemyChessesPossibleSteps.Contains(nextPosition))
+                    continue;
 
                 var chess = gameBoard.BoardCells[nextPosition.Horizontal - 1, nextPosition.Vertical - 1].Chess;
 

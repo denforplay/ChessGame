@@ -68,5 +68,16 @@ namespace ChessLib.Models.Figures
         /// </summary>
         /// <returns>List of all possible steps that figure can make</returns>
         public abstract List<ChessPosition> GetPossibleSteps(GameBoard gameBoard);
+
+        public override bool Equals(object obj)
+        {
+            if (obj is ChessBase otherChess)
+            {
+                return _chessColor == otherChess.ChessColor
+                    && CurrentPosition == otherChess.CurrentPosition;
+            }
+
+            return false;
+        }
     }
 }

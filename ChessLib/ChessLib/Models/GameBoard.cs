@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ChessLib.Models.Figures;
+using System;
+using System.Collections.Generic;
 
 namespace ChessLib.Models
 {
@@ -10,9 +12,6 @@ namespace ChessLib.Models
         public readonly int BOARD_SIZE = 8;
 
         private BoardCell[,] _boardCells;
-        private ChessPlayer _whitePlayer;
-        private ChessPlayer _blackPlayer;
-        private ChessPlayer _currentTurnPlayer;
 
         /// <summary>
         /// All board cells
@@ -25,27 +24,31 @@ namespace ChessLib.Models
         public GameBoard()
         {
             InitializeBoardCells();
-            InitializePlayers();
         }
 
-        public void MoveChess(ChessPosition fromPositionChess, ChessPosition toPosition)
+        public List<ChessBase> GetAllOponentChesses(ChessColor opponentColor)
         {
-            _currentTurnPlayer.TakeChessFigure(fromPositionChess);
-            _currentTurnPlayer.MoveChess(toPosition, this);
-            _currentTurnPlayer = _currentTurnPlayer == _whitePlayer ? _blackPlayer : _whitePlayer;
+            List<ChessBase> oponentChess = new List<ChessBase>();
+            for (int i = 0; i < BOARD_SIZE; i++)
+            {
+                for (int j = 0; j < BOARD_SIZE; j++)
+                {
+                    if (_boardCells[i, j].Chess?.ChessColor == opponentColor)
+                        oponentChess.Add(_boardCells[i, j].Chess);
+                }
+            }
+
+            return oponentChess;
         }
 
-        public bool IsPositionInBoard(int horizontal, int verical)
+        public bool IsPositionOnBoard(int horizontal, int vertical)
         {
-            return horizontal >= 0 && horizontal < BOARD_SIZE && verical >= 0 && verical < BOARD_SIZE;
+            return horizontal >= 0 && horizontal < BOARD_SIZE && vertical >= 0 && vertical < BOARD_SIZE;
         }
 
         public void RemoveChess(BoardCell onBoardCell)
         {
-            if (onBoardCell.Chess.ChessColor == ChessColor.White)
-                _whitePlayer.RemoveChess(onBoardCell.Chess);
-            else
-                _blackPlayer.RemoveChess(onBoardCell.Chess);
+            
             onBoardCell.SetChess(null);
         }
 
@@ -65,17 +68,6 @@ namespace ChessLib.Models
                 }
             }
         }
-        
-        /// <summary>
-        /// Initialize players by chess figures depends on figures colors
-        /// </summary>
-        private void InitializePlayers()
-        {
-            _whitePlayer = new ChessPlayer(ChessColor.White);
-            _blackPlayer = new ChessPlayer(ChessColor.Black);
-            _whitePlayer.Initialize(this);
-            _blackPlayer.Initialize(this);
-            _currentTurnPlayer = _whitePlayer;
-        }
+
     }
 }

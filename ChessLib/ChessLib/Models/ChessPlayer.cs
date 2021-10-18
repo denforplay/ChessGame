@@ -90,6 +90,9 @@ namespace ChessLib.Models
                         ChessBase knight2 = new Knight(gameBoard.BoardCells[5, 0].ChessPosition, _playerChessColor);
                         _chesses.Add(knight2);
                         gameBoard.BoardCells[5, 0].SetChess(knight2);
+                        ChessBase queen = new Queen(gameBoard.BoardCells[3, 0].ChessPosition, _playerChessColor);
+                        _chesses.Add(queen);
+                        gameBoard.BoardCells[3, 0].SetChess(queen);
                     }
                     break;
                 case ChessColor.Black:
@@ -119,6 +122,9 @@ namespace ChessLib.Models
                         ChessBase knight2 = new Knight(gameBoard.BoardCells[5, 7].ChessPosition, _playerChessColor);
                         _chesses.Add(knight2);
                         gameBoard.BoardCells[5, 7].SetChess(knight2);
+                        ChessBase queen = new Queen(gameBoard.BoardCells[3, 7].ChessPosition, _playerChessColor);
+                        _chesses.Add(queen);
+                        gameBoard.BoardCells[3, 7].SetChess(queen);
                     }
                     break;
             }

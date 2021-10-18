@@ -25,15 +25,12 @@ namespace ChessLib.Models.Figures
             for (int i = 0; i < directions.Length; i++)
             {
                 var nextPosition = new ChessPosition(CurrentPosition.Horizontal, CurrentPosition.Vertical);
-                try
-                {
-                    nextPosition.Horizontal += (int)directions[i].X;
-                    nextPosition.Vertical += (int)directions[i].Y;
-                }
-                catch (ArgumentException ex)
-                {
+
+                if (!gameBoard.IsPositionInBoard(nextPosition.Horizontal + (int)directions[i].X - 1, nextPosition.Vertical + (int)directions[i].Y - 1))
                     continue;
-                }
+
+                nextPosition.Horizontal += (int)directions[i].X;
+                nextPosition.Vertical += (int)directions[i].Y;
 
                 var chess = gameBoard.BoardCells[nextPosition.Horizontal - 1, nextPosition.Vertical - 1].Chess;
 

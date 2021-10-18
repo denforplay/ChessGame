@@ -35,6 +35,11 @@ namespace ChessLib.Models
             _currentTurnPlayer = _currentTurnPlayer == _whitePlayer ? _blackPlayer : _whitePlayer;
         }
 
+        public bool IsPositionInBoard(int horizontal, int verical)
+        {
+            return horizontal >= 0 && horizontal < BOARD_SIZE && verical >= 0 && verical < BOARD_SIZE;
+        }
+
         public void RemoveChess(BoardCell onBoardCell)
         {
             if (onBoardCell.Chess.ChessColor == ChessColor.White)

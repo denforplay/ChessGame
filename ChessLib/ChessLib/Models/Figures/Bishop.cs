@@ -28,15 +28,10 @@ namespace ChessLib.Models.Figures
                 while (nextPosition.Vertical <= 8 && nextPosition.Vertical >= 1
 && nextPosition.Horizontal >= 1 && nextPosition.Horizontal <= 8)
                 {
-                    try
-                    {
-                        nextPosition.Horizontal += (int)directions[i].X;
-                        nextPosition.Vertical += (int)directions[i].Y;
-                    }
-                    catch (ArgumentException ex)
-                    {
+                    if (!gameBoard.IsPositionInBoard(nextPosition.Horizontal + (int)directions[i].X - 1, nextPosition.Vertical + (int)directions[i].Y - 1))
                         break;
-                    }
+                    nextPosition.Horizontal += (int)directions[i].X;
+                    nextPosition.Vertical += (int)directions[i].Y;
 
                     ChessBase chess = gameBoard.BoardCells[nextPosition.Horizontal - 1, nextPosition.Vertical - 1].Chess;
 

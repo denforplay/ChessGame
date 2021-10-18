@@ -21,31 +21,21 @@ namespace ChessLib.Models.Figures
                         if (gameBoard.BoardCells[CurrentPosition.Horizontal - 1, CurrentPosition.Vertical].Chess is null)
                             nextSteps.Add(new ChessPosition(CurrentPosition.Horizontal, CurrentPosition.Vertical + 1));
 
-                        try
+                        if (gameBoard.IsPositionInBoard(CurrentPosition.Horizontal, CurrentPosition.Vertical) &&
+                        gameBoard.BoardCells[CurrentPosition.Horizontal, CurrentPosition.Vertical].Chess is not null)
                         {
-                            if (gameBoard.BoardCells[CurrentPosition.Horizontal, CurrentPosition.Vertical].Chess is not null)
-                            {
-                                nextSteps.Add(new ChessPosition(CurrentPosition.Horizontal + 1, CurrentPosition.Vertical + 1));
-                            }
-                        }
-                        catch
-                        {
+                            nextSteps.Add(new ChessPosition(CurrentPosition.Horizontal + 1, CurrentPosition.Vertical + 1));
                         }
 
-                        try
+                        if (gameBoard.IsPositionInBoard(CurrentPosition.Horizontal - 2, CurrentPosition.Vertical) &&
+                            gameBoard.BoardCells[CurrentPosition.Horizontal - 2, CurrentPosition.Vertical].Chess is not null)
                         {
-                            if (gameBoard.BoardCells[CurrentPosition.Horizontal - 2, CurrentPosition.Vertical].Chess is not null)
-                            {
-                                nextSteps.Add(new ChessPosition(CurrentPosition.Horizontal - 1, CurrentPosition.Vertical + 1));
-                            }
-                        }
-                        catch
-                        {
+                            nextSteps.Add(new ChessPosition(CurrentPosition.Horizontal - 1, CurrentPosition.Vertical + 1));
                         }
 
                         if (_isFirstStep && gameBoard.BoardCells[CurrentPosition.Horizontal - 1, CurrentPosition.Vertical + 1].Chess is null)
                         {
-                             nextSteps.Add(new ChessPosition(CurrentPosition.Horizontal, CurrentPosition.Vertical + 2));
+                            nextSteps.Add(new ChessPosition(CurrentPosition.Horizontal, CurrentPosition.Vertical + 2));
                         }
                     }
                     break;
@@ -54,26 +44,16 @@ namespace ChessLib.Models.Figures
                         if (gameBoard.BoardCells[CurrentPosition.Horizontal - 1, CurrentPosition.Vertical - 2].Chess is null)
                             nextSteps.Add(new ChessPosition(CurrentPosition.Horizontal, CurrentPosition.Vertical - 1));
 
-                        try
+                        if (gameBoard.IsPositionInBoard(CurrentPosition.Horizontal, CurrentPosition.Vertical - 2) &&
+                            gameBoard.BoardCells[CurrentPosition.Horizontal, CurrentPosition.Vertical - 2].Chess is not null)
                         {
-                            if (gameBoard.BoardCells[CurrentPosition.Horizontal, CurrentPosition.Vertical - 2].Chess is not null)
-                            {
-                                nextSteps.Add(new ChessPosition(CurrentPosition.Horizontal + 1, CurrentPosition.Vertical - 1));
-                            }
-                        }
-                        catch
-                        {
+                            nextSteps.Add(new ChessPosition(CurrentPosition.Horizontal + 1, CurrentPosition.Vertical - 1));
                         }
 
-                        try
+                        if (gameBoard.IsPositionInBoard(CurrentPosition.Horizontal - 2, CurrentPosition.Vertical - 2) &&
+                            gameBoard.BoardCells[CurrentPosition.Horizontal - 2, CurrentPosition.Vertical - 2].Chess is not null)
                         {
-                            if (gameBoard.BoardCells[CurrentPosition.Horizontal - 2, CurrentPosition.Vertical - 2].Chess is not null)
-                            {
-                                nextSteps.Add(new ChessPosition(CurrentPosition.Horizontal - 1, CurrentPosition.Vertical - 1));
-                            }
-                        }
-                        catch
-                        {
+                            nextSteps.Add(new ChessPosition(CurrentPosition.Horizontal - 1, CurrentPosition.Vertical - 1));
                         }
 
                         if (_isFirstStep && gameBoard.BoardCells[CurrentPosition.Horizontal - 1, CurrentPosition.Vertical - 3].Chess is null)

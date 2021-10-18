@@ -25,6 +25,7 @@ namespace ChessTests.ModelsTests
             _gameBoard.MoveChess(new ChessPosition(6, 5), new ChessPosition(6, 4));
             _gameBoard.MoveChess(new ChessPosition(5, 4), new ChessPosition(3, 6));
             _gameBoard.MoveChess(new ChessPosition(3, 8), new ChessPosition(4, 6));
+            _gameBoard.MoveChess(new ChessPosition(1, 1), new ChessPosition(1, 2));
         }
     }
 }

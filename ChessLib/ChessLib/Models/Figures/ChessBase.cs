@@ -52,7 +52,14 @@ namespace ChessLib.Models.Figures
             if (GetPossibleSteps(gameBoard).Contains(nextPosition))
             {
                 gameBoard.BoardCells[CurrentPosition.Horizontal - 1, CurrentPosition.Vertical - 1].SetChess(null);
-                gameBoard.BoardCells[nextPosition.Horizontal - 1, nextPosition.Vertical - 1].SetChess(this);
+
+                var boardCell = gameBoard.BoardCells[nextPosition.Horizontal - 1, nextPosition.Vertical - 1];
+                if (boardCell.Chess != null)
+                {
+                    gameBoard.RemoveChess(boardCell);
+                }
+
+                boardCell.SetChess(this);
                 CurrentPosition = nextPosition;
             }
         }

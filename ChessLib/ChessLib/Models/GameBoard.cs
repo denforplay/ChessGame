@@ -8,9 +8,9 @@
         public readonly int BOARD_SIZE = 8;
 
         private BoardCell[,] _boardCells;
-        private ChessPlayer FirstPlayer;
-        private ChessPlayer SecondPlayer;
-        private ChessPlayer CurrentTurnPlayer;
+        private ChessPlayer _whitePlayer;
+        private ChessPlayer _blackPlayer;
+        private ChessPlayer _currentTurnPlayer;
 
         /// <summary>
         /// All board cells
@@ -28,9 +28,18 @@
 
         public void MoveChess(ChessPosition fromPositionChess, ChessPosition toPosition)
         {
-            CurrentTurnPlayer.TakeChessFigure(fromPositionChess);
-            CurrentTurnPlayer.MoveChess(toPosition, this);
-            CurrentTurnPlayer = CurrentTurnPlayer == FirstPlayer ? SecondPlayer : FirstPlayer;
+            _currentTurnPlayer.TakeChessFigure(fromPositionChess);
+            _currentTurnPlayer.MoveChess(toPosition, this);
+            _currentTurnPlayer = _currentTurnPlayer == _whitePlayer ? _blackPlayer : _whitePlayer;
+        }
+
+        public void RemoveChess(BoardCell onBoardCell)
+        {
+            if (onBoardCell.Chess.ChessColor == ChessColor.White)
+                _whitePlayer.RemoveChess(onBoardCell.Chess);
+            else
+                _blackPlayer.RemoveChess(onBoardCell.Chess);
+            onBoardCell.SetChess(null);
         }
 
         /// <summary>
@@ -55,11 +64,11 @@
         /// </summary>
         private void InitializePlayers()
         {
-            FirstPlayer = new ChessPlayer(ChessColor.White);
-            SecondPlayer = new ChessPlayer(ChessColor.Black);
-            FirstPlayer.Initialize(this);
-            SecondPlayer.Initialize(this);
-            CurrentTurnPlayer = FirstPlayer;
+            _whitePlayer = new ChessPlayer(ChessColor.White);
+            _blackPlayer = new ChessPlayer(ChessColor.Black);
+            _whitePlayer.Initialize(this);
+            _blackPlayer.Initialize(this);
+            _currentTurnPlayer = _whitePlayer;
         }
     }
 }

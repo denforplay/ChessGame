@@ -48,7 +48,11 @@ namespace ChessLib.Models
             {
                 throw new ArgumentNullException(nameof(_takenChess), "Player hasnt taken chess");
             }
+        }
 
+        public void RemoveChess(ChessBase chessToRemove)
+        {
+            _chesses.Remove(chessToRemove);
         }
 
         /// <summary>

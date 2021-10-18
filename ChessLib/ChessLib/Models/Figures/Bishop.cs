@@ -38,9 +38,17 @@ namespace ChessLib.Models.Figures
                         break;
                     }
 
-                    if (gameBoard.BoardCells[nextPosition.Horizontal - 1, nextPosition.Vertical - 1].Chess is null)
+                    ChessBase chess = gameBoard.BoardCells[nextPosition.Horizontal - 1, nextPosition.Vertical - 1].Chess;
+
+                    if (chess is null)
                         nextSteps.Add(new ChessPosition(nextPosition.Horizontal, nextPosition.Vertical));
-                    else break;
+                    else if (chess.ChessColor != this.ChessColor)
+                    {
+                        nextSteps.Add(new ChessPosition(nextPosition.Horizontal, nextPosition.Vertical));
+                        break;
+                    }
+                    else
+                        break;
                 }
             }
 

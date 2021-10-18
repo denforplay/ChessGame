@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Numerics;
 
 namespace ChessLib.Models.Figures
 {
@@ -10,25 +12,41 @@ namespace ChessLib.Models.Figures
 
         public override List<ChessPosition> GetPossibleSteps(GameBoard gameBoard)
         {
+            Vector2[] directions = new Vector2[]
+            {
+                 new Vector2(0, 1),
+                 new Vector2(0, -1),
+                 new Vector2(1, 0),
+                 new Vector2(-1, 0)
+            };
+
             List<ChessPosition> nextSteps = new List<ChessPosition>();
 
-            for (int i = 1; i <= 8; i++)
+            for (int i = 0; i < directions.Length; i++)
             {
-                if (i != CurrentPosition.Horizontal)
+                var nextPosition = new ChessPosition(CurrentPosition.Horizontal, CurrentPosition.Vertical);
+                while (nextPosition.Vertical <= 8 && nextPosition.Vertical >= 1
+&& nextPosition.Horizontal >= 1 && nextPosition.Horizontal <= 8)
                 {
-                    if (gameBoard.BoardCells[i - 1, CurrentPosition.Vertical - 1].Chess is null)
-                        nextSteps.Add(new ChessPosition(i, CurrentPosition.Vertical));
-                    else
+                    try
+                    {
+                        nextPosition.Horizontal += (int)directions[i].X;
+                        nextPosition.Vertical += (int)directions[i].Y;
+                    }
+                    catch (ArgumentException ex)
+                    {
                         break;
-                }
-            }
+                    }
 
-            for (int i = 1; i <= 8; i++)
-            {
-                if (i != CurrentPosition.Vertical)
-                {
-                    if (gameBoard.BoardCells[CurrentPosition.Horizontal - 1, i - 1].Chess is null)
-                        nextSteps.Add(new ChessPosition(CurrentPosition.Horizontal, i));
+                    ChessBase chess = gameBoard.BoardCells[nextPosition.Horizontal - 1, nextPosition.Vertical - 1].Chess;
+
+                    if (chess is null)
+                        nextSteps.Add(new ChessPosition(nextPosition.Horizontal, nextPosition.Vertical));
+                    else if (chess.ChessColor != this.ChessColor)
+                    {
+                        nextSteps.Add(new ChessPosition(nextPosition.Horizontal, nextPosition.Vertical));
+                        break;
+                    }
                     else
                         break;
                 }

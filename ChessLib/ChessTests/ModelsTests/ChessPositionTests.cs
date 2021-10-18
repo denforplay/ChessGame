@@ -12,6 +12,16 @@ namespace ChessTests.ModelsTests
         }
 
         [Fact]
+        public void GameBoard_TestPawnMovements_ReturnsTrue()
+        {
+            GameBoard _gameBoard = new GameBoard();
+            _gameBoard.MoveChess(new ChessPosition(2, 2), new ChessPosition(2, 4));
+            _gameBoard.MoveChess(new ChessPosition(3, 7), new ChessPosition(3, 5));
+            _gameBoard.MoveChess(new ChessPosition(4, 2), new ChessPosition(4, 4));
+            _gameBoard.MoveChess(new ChessPosition(3, 5), new ChessPosition(4, 4));
+        }
+
+        [Fact]
         public void CreateChessPosition_WithVerticalOutOfZone_ThrowArgumentException()
         {
             GameBoard _gameBoard = new GameBoard();
@@ -27,7 +37,7 @@ namespace ChessTests.ModelsTests
             _gameBoard.MoveChess(new ChessPosition(3, 8), new ChessPosition(4, 6));
             _gameBoard.MoveChess(new ChessPosition(1, 1), new ChessPosition(1, 2));
             _gameBoard.MoveChess(new ChessPosition(7, 6), new ChessPosition(7, 5));
-            _gameBoard.MoveChess(new ChessPosition(4, 1), new ChessPosition(3,3));
+            _gameBoard.MoveChess(new ChessPosition(4, 1), new ChessPosition(3, 3));
         }
     }
 }

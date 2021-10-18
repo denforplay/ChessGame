@@ -1,4 +1,6 @@
-﻿namespace ChessLib.Models
+﻿using System;
+
+namespace ChessLib.Models
 {
     /// <summary>
     /// Represents game board

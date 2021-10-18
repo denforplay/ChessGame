@@ -21,6 +21,28 @@ namespace ChessLib.Models.Figures
                         if (gameBoard.BoardCells[CurrentPosition.Horizontal - 1, CurrentPosition.Vertical].Chess is null)
                             nextSteps.Add(new ChessPosition(CurrentPosition.Horizontal, CurrentPosition.Vertical + 1));
 
+                        try
+                        {
+                            if (gameBoard.BoardCells[CurrentPosition.Horizontal, CurrentPosition.Vertical].Chess is not null)
+                            {
+                                nextSteps.Add(new ChessPosition(CurrentPosition.Horizontal + 1, CurrentPosition.Vertical + 1));
+                            }
+                        }
+                        catch
+                        {
+                        }
+
+                        try
+                        {
+                            if (gameBoard.BoardCells[CurrentPosition.Horizontal - 2, CurrentPosition.Vertical].Chess is not null)
+                            {
+                                nextSteps.Add(new ChessPosition(CurrentPosition.Horizontal - 1, CurrentPosition.Vertical + 1));
+                            }
+                        }
+                        catch
+                        {
+                        }
+
                         if (_isFirstStep && gameBoard.BoardCells[CurrentPosition.Horizontal - 1, CurrentPosition.Vertical + 1].Chess is null)
                         {
                              nextSteps.Add(new ChessPosition(CurrentPosition.Horizontal, CurrentPosition.Vertical + 2));
@@ -32,10 +54,33 @@ namespace ChessLib.Models.Figures
                         if (gameBoard.BoardCells[CurrentPosition.Horizontal - 1, CurrentPosition.Vertical - 2].Chess is null)
                             nextSteps.Add(new ChessPosition(CurrentPosition.Horizontal, CurrentPosition.Vertical - 1));
 
+                        try
+                        {
+                            if (gameBoard.BoardCells[CurrentPosition.Horizontal, CurrentPosition.Vertical - 2].Chess is not null)
+                            {
+                                nextSteps.Add(new ChessPosition(CurrentPosition.Horizontal + 1, CurrentPosition.Vertical - 1));
+                            }
+                        }
+                        catch
+                        {
+                        }
+
+                        try
+                        {
+                            if (gameBoard.BoardCells[CurrentPosition.Horizontal - 2, CurrentPosition.Vertical - 2].Chess is not null)
+                            {
+                                nextSteps.Add(new ChessPosition(CurrentPosition.Horizontal - 1, CurrentPosition.Vertical - 1));
+                            }
+                        }
+                        catch
+                        {
+                        }
+
                         if (_isFirstStep && gameBoard.BoardCells[CurrentPosition.Horizontal - 1, CurrentPosition.Vertical - 3].Chess is null)
                         {
                             nextSteps.Add(new ChessPosition(CurrentPosition.Horizontal, CurrentPosition.Vertical - 2));
                         }
+
                     }
                     break;
             }
@@ -49,7 +94,14 @@ namespace ChessLib.Models.Figures
             {
                 if (_isFirstStep)
                     _isFirstStep = false;
+
                 gameBoard.BoardCells[CurrentPosition.Horizontal - 1, CurrentPosition.Vertical - 1].SetChess(null);
+
+                if (gameBoard.BoardCells[nextPosition.Horizontal - 1, nextPosition.Vertical - 1].Chess != null)
+                {
+                    gameBoard.RemoveChess(gameBoard.BoardCells[nextPosition.Horizontal - 1, nextPosition.Vertical - 1]);
+                }
+
                 gameBoard.BoardCells[nextPosition.Horizontal - 1, nextPosition.Vertical - 1].SetChess(this);
                 CurrentPosition = nextPosition;
             }

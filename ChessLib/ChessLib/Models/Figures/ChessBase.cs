@@ -53,13 +53,12 @@ namespace ChessLib.Models.Figures
             {
                 gameBoard.BoardCells[CurrentPosition.Horizontal - 1, CurrentPosition.Vertical - 1].SetChess(null);
 
-                var boardCell = gameBoard.BoardCells[nextPosition.Horizontal - 1, nextPosition.Vertical - 1];
-                if (boardCell.Chess != null)
+                if (gameBoard.BoardCells[nextPosition.Horizontal - 1, nextPosition.Vertical - 1].Chess != null)
                 {
-                    gameBoard.RemoveChess(boardCell);
+                    gameBoard.RemoveChess(gameBoard.BoardCells[nextPosition.Horizontal - 1, nextPosition.Vertical - 1]);
                 }
 
-                boardCell.SetChess(this);
+                gameBoard.BoardCells[nextPosition.Horizontal - 1, nextPosition.Vertical - 1].SetChess(this);
                 CurrentPosition = nextPosition;
             }
         }

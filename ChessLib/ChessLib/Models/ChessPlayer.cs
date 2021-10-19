@@ -61,6 +61,7 @@ namespace ChessLib.Models
         /// Initialize player (give base figures list)
         /// </summary>
         /// <param name="gameBoard">Game board</param>
+
         public void Initialize(GameBoard gameBoard)
         {
             switch (_playerChessColor)
@@ -70,8 +71,7 @@ namespace ChessLib.Models
                         for (int i = 0; i < gameBoard.BOARD_SIZE; i++)
                         {
                             ChessBase chess = new Pawn(gameBoard.BoardCells[i, 1].ChessPosition, _playerChessColor);
-                            gameBoard.BoardCells[i, 1].SetChess(chess);
-                            _chesses.Add(chess);
+                            AddChess(chess, ref gameBoard.BoardCells[i, 1]);
                         }
 
                         ChessBase castle1 = new Castle(gameBoard.BoardCells[0, 0].ChessPosition, _playerChessColor);
@@ -105,9 +105,8 @@ namespace ChessLib.Models
                     {
                         for (int i = 0; i < gameBoard.BOARD_SIZE; i++)
                         {
-                            ChessBase chess = new Pawn(gameBoard.BoardCells[i, 6].ChessPosition, _playerChessColor);
-                            gameBoard.BoardCells[i, 6].SetChess(chess);
-                            _chesses.Add(chess);
+                            ChessBase pawn = new Pawn(gameBoard.BoardCells[i, 6].ChessPosition, _playerChessColor);
+                            AddChess(pawn, ref gameBoard.BoardCells[i, 6]);
                         }
 
                         ChessBase castle1 = new Castle(gameBoard.BoardCells[0, 7].ChessPosition, _playerChessColor);
@@ -140,6 +139,12 @@ namespace ChessLib.Models
                     }
                     break;
             }
+        }
+
+        private void AddChess(ChessBase chess, ref BoardCell boardCell)
+        {
+            boardCell.SetChess(chess);
+            _chesses.Add(chess);
         }
 
         /// <summary>

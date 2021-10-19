@@ -18,22 +18,22 @@ namespace ChessLib.Models.Figures
             {
                 case ChessColor.White:
                     {
-                        if (gameBoard.BoardCells[CurrentPosition.Horizontal - 1, CurrentPosition.Vertical].Chess is null)
+                        if (gameBoard.BoardCells[CurrentPosition.Horizontal - 1, CurrentPosition.Vertical].Chess is EmptyChess)
                             nextSteps.Add(new ChessPosition(CurrentPosition.Horizontal, CurrentPosition.Vertical + 1));
 
                         if (gameBoard.IsPositionOnBoard(CurrentPosition.Horizontal, CurrentPosition.Vertical) &&
-                        gameBoard.BoardCells[CurrentPosition.Horizontal, CurrentPosition.Vertical].Chess is not null)
+                        gameBoard.BoardCells[CurrentPosition.Horizontal, CurrentPosition.Vertical].Chess is not EmptyChess)
                         {
                             nextSteps.Add(new ChessPosition(CurrentPosition.Horizontal + 1, CurrentPosition.Vertical + 1));
                         }
 
                         if (gameBoard.IsPositionOnBoard(CurrentPosition.Horizontal - 2, CurrentPosition.Vertical) &&
-                            gameBoard.BoardCells[CurrentPosition.Horizontal - 2, CurrentPosition.Vertical].Chess is not null)
+                            gameBoard.BoardCells[CurrentPosition.Horizontal - 2, CurrentPosition.Vertical].Chess is not EmptyChess)
                         {
                             nextSteps.Add(new ChessPosition(CurrentPosition.Horizontal - 1, CurrentPosition.Vertical + 1));
                         }
 
-                        if (_isFirstStep && gameBoard.BoardCells[CurrentPosition.Horizontal - 1, CurrentPosition.Vertical + 1].Chess is null)
+                        if (_isFirstStep && gameBoard.BoardCells[CurrentPosition.Horizontal - 1, CurrentPosition.Vertical + 1].Chess is EmptyChess)
                         {
                             nextSteps.Add(new ChessPosition(CurrentPosition.Horizontal, CurrentPosition.Vertical + 2));
                         }
@@ -41,22 +41,22 @@ namespace ChessLib.Models.Figures
                     break;
                 case ChessColor.Black:
                     {
-                        if (gameBoard.BoardCells[CurrentPosition.Horizontal - 1, CurrentPosition.Vertical - 2].Chess is null)
+                        if (gameBoard.BoardCells[CurrentPosition.Horizontal - 1, CurrentPosition.Vertical - 2].Chess is EmptyChess)
                             nextSteps.Add(new ChessPosition(CurrentPosition.Horizontal, CurrentPosition.Vertical - 1));
 
                         if (gameBoard.IsPositionOnBoard(CurrentPosition.Horizontal, CurrentPosition.Vertical - 2) &&
-                            gameBoard.BoardCells[CurrentPosition.Horizontal, CurrentPosition.Vertical - 2].Chess is not null)
+                            gameBoard.BoardCells[CurrentPosition.Horizontal, CurrentPosition.Vertical - 2].Chess is not EmptyChess)
                         {
                             nextSteps.Add(new ChessPosition(CurrentPosition.Horizontal + 1, CurrentPosition.Vertical - 1));
                         }
 
                         if (gameBoard.IsPositionOnBoard(CurrentPosition.Horizontal - 2, CurrentPosition.Vertical - 2) &&
-                            gameBoard.BoardCells[CurrentPosition.Horizontal - 2, CurrentPosition.Vertical - 2].Chess is not null)
+                            gameBoard.BoardCells[CurrentPosition.Horizontal - 2, CurrentPosition.Vertical - 2].Chess is not EmptyChess)
                         {
                             nextSteps.Add(new ChessPosition(CurrentPosition.Horizontal - 1, CurrentPosition.Vertical - 1));
                         }
 
-                        if (_isFirstStep && gameBoard.BoardCells[CurrentPosition.Horizontal - 1, CurrentPosition.Vertical - 3].Chess is null)
+                        if (_isFirstStep && gameBoard.BoardCells[CurrentPosition.Horizontal - 1, CurrentPosition.Vertical - 3].Chess is EmptyChess)
                         {
                             nextSteps.Add(new ChessPosition(CurrentPosition.Horizontal, CurrentPosition.Vertical - 2));
                         }
@@ -75,9 +75,9 @@ namespace ChessLib.Models.Figures
                 if (_isFirstStep)
                     _isFirstStep = false;
 
-                gameBoard.BoardCells[CurrentPosition.Horizontal - 1, CurrentPosition.Vertical - 1].SetChess(null);
+                gameBoard.BoardCells[CurrentPosition.Horizontal - 1, CurrentPosition.Vertical - 1].SetChess(new EmptyChess(CurrentPosition, ChessColor.None));
 
-                if (gameBoard.BoardCells[nextPosition.Horizontal - 1, nextPosition.Vertical - 1].Chess != null)
+                if (gameBoard.BoardCells[nextPosition.Horizontal - 1, nextPosition.Vertical - 1].Chess is not EmptyChess)
                 {
                     gameBoard.RemoveChess(gameBoard.BoardCells[nextPosition.Horizontal - 1, nextPosition.Vertical - 1]);
                 }

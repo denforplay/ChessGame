@@ -48,8 +48,7 @@ namespace ChessLib.Models
 
         public void RemoveChess(BoardCell onBoardCell)
         {
-            
-            onBoardCell.SetChess(null);
+            onBoardCell.SetChess(new EmptyChess(onBoardCell.ChessPosition, ChessColor.None));
         }
 
         /// <summary>
@@ -63,7 +62,7 @@ namespace ChessLib.Models
                 for (int col = 0; col < BOARD_SIZE; col++)
                 {
                     ChessPosition chessPosition = new ChessPosition(row + 1, col + 1);
-                    BoardCell boardCell = new BoardCell(chessPosition, null);
+                    BoardCell boardCell = new BoardCell(chessPosition, new EmptyChess(chessPosition, ChessColor.None));
                     _boardCells[row, col] = boardCell;
                 }
             }

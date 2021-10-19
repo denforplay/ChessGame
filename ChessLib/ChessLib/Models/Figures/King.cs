@@ -50,7 +50,7 @@ namespace ChessLib.Models.Figures
 
                 var chess = gameBoard.BoardCells[nextPosition.Horizontal - 1, nextPosition.Vertical - 1].Chess;
 
-                if (chess is null)
+                if (chess is EmptyChess)
                     nextSteps.Add(new ChessPosition(nextPosition.Horizontal, nextPosition.Vertical));
                 else if (chess.ChessColor != this.ChessColor)
                 {

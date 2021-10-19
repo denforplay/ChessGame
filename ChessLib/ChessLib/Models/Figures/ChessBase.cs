@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using ChessLib.Models.Enums;
+using System.Collections.Generic;
+using System.Numerics;
 
 namespace ChessLib.Models.Figures
 {
@@ -9,6 +11,7 @@ namespace ChessLib.Models.Figures
     {
         private ChessColor _chessColor;
         private ChessPosition _currentChessPosition;
+        protected Vector2<int>[] _moveDirections;
 
         /// <summary>
         /// Represents current chess color.
@@ -79,6 +82,19 @@ namespace ChessLib.Models.Figures
             }
 
             return false;
+        }
+
+        public override int GetHashCode()
+        {
+            int hash = 2441;
+            hash += hash * 12 + _chessColor.GetHashCode();
+            hash += hash * 12 + _currentChessPosition.GetHashCode();
+            return hash;
+        }
+
+        public override string ToString()
+        {
+            return base.ToString();
         }
     }
 }

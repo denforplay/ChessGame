@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ChessLib.Models.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,9 +13,11 @@ namespace ChessLib.Models
         private ChessPlayer _whitePlayer;
         private ChessPlayer _blackPlayer;
         private ChessPlayer _currentTurnPlayer;
+        private GameState _gameState;
 
         public ChessGame()
         {
+            _gameState = GameState.ACTIVE_GAME;
             _gameBoard = new GameBoard();
             InitializePlayers();
         }

@@ -1,35 +1,35 @@
 ﻿using ChessLib.Models;
+using System;
 using Xunit;
 
 namespace ChessTests.ModelsTests
 {
     public class ChessPositionTests
     {
-        [Fact]
-        public void CreateChessPosition_WithHorizontalOutOfZone_ThrowArgumentException()
+        [Theory]
+        [InlineData(0, 1)]
+        [InlineData(9, 1)]
+        public void CreateChessPosition_WithHorizontalOutOfZone_ThrowArgumentOutOfRangeException(int horizontal, int vertical)
         {
-
+            Assert.Throws<ArgumentOutOfRangeException>(() => new ChessPosition(horizontal, vertical));
         }
 
-        [Fact]
-        public void GameBoard_TestPawnMovements_ReturnsTrue()
+        [Theory]
+        [InlineData(1, 0)]
+        [InlineData(1, 9)]
+        public void CreateChessPosition_WithVerticalOutOfZone_ThrowArgumentException(int horizontal, int vertical)
         {
-            ChessGame game = new ChessGame();
-            game.MakeStep(new ChessPosition(2, 2), new ChessPosition(2, 4));
-            game.MakeStep(new ChessPosition(3, 7), new ChessPosition(3, 5));
-            game.MakeStep(new ChessPosition(4, 2), new ChessPosition(4, 4));
-            game.MakeStep(new ChessPosition(3, 5), new ChessPosition(4, 4));
+            Assert.Throws<ArgumentOutOfRangeException>(() => new ChessPosition(horizontal, vertical));
         }
 
-        [Fact]
-        public void CreateChessPosition_WithVerticalOutOfZone_ThrowArgumentException()
+        [Theory]
+        [InlineData(2, 2)]
+        public void CreateChessPosition_WithValidData(int horizontal, int vertical)
         {
-            ChessGame game = new ChessGame();
-            game.MakeStep(new ChessPosition(1, 2), new ChessPosition(1, 3));
-            game.MakeStep(new ChessPosition(8, 7), new ChessPosition(8, 6));
-            game.MakeStep(new ChessPosition(5, 2), new ChessPosition(5, 4));
-            game.MakeStep(new ChessPosition(8, 6), new ChessPosition(8, 5));
-            game.MakeStep(new ChessPosition(5, 1), new ChessPosition(5, 2));
+            var expected = (2, 2);
+            ChessPosition chessPosition = new ChessPosition(horizontal, vertical);
+            var actual = (chessPosition.Horizontal, chessPosition.Vertical);
+            Assert.Equal(expected, actual);
         }
     }
 }

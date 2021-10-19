@@ -1,4 +1,4 @@
-﻿namespace ChessLib.Models
+﻿namespace ChessLib.Models.Enums
 {
     /// <summary>
     /// Chess colors

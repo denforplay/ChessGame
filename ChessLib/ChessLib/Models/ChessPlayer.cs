@@ -1,4 +1,5 @@
-﻿using ChessLib.Models.Figures;
+﻿using ChessLib.Models.Enums;
+using ChessLib.Models.Figures;
 using System;
 using System.Collections.Generic;
 
@@ -54,6 +55,7 @@ namespace ChessLib.Models
 
         public void RemoveChess(ChessBase chessToRemove)
         {
+
             _chesses.Remove(chessToRemove);
         }
 

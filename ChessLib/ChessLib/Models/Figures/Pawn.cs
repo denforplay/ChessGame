@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using ChessLib.Models.Enums;
+using System.Collections.Generic;
 
 namespace ChessLib.Models.Figures
 {

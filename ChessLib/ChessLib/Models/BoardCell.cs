@@ -29,6 +29,16 @@ namespace ChessLib.Models
         /// <param name="chess">Chess</param>
         public BoardCell(ChessPosition chessPosition, ChessBase chess)
         {
+            if (chessPosition is null)
+            {
+                throw new ArgumentNullException(nameof(chessPosition));
+            }
+
+            if (chess is null)
+            {
+                throw new ArgumentNullException(nameof(chess));
+            }
+
             _chessPosition = chessPosition;
             _chess = chess;
         }
@@ -39,6 +49,11 @@ namespace ChessLib.Models
         /// <param name="otherChess">Other chess to set in cell</param>
         public void SetChess(ChessBase otherChess)
         {
+            if (otherChess is null)
+            {
+                throw new ArgumentNullException(nameof(otherChess));
+            }
+
             _chess = otherChess;
         }
 
@@ -65,8 +80,8 @@ namespace ChessLib.Models
         public override int GetHashCode()
         {
             int hash = 1332;
-            hash = hash * 7 + _chess.GetHashCode();
-            hash = hash * 7 + _chessPosition.GetHashCode();
+            hash += hash * 7 + _chess.GetHashCode();
+            hash += hash * 7 + _chessPosition.GetHashCode();
             return hash;
         }
 

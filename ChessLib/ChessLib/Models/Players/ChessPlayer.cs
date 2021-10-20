@@ -3,7 +3,7 @@ using ChessLib.Models.Figures;
 using System;
 using System.Collections.Generic;
 
-namespace ChessLib.Models
+namespace ChessLib.Models.Players
 {
     /// <summary>
     /// Represents chess player
@@ -15,6 +15,7 @@ namespace ChessLib.Models
         private ChessBase _takenChess;
 
         public List<ChessBase> Chesses => _chesses;
+        public ChessBase TakenChess => _takenChess;
 
         /// <summary>
         /// Chess player constructor
@@ -55,7 +56,6 @@ namespace ChessLib.Models
 
         public void RemoveChess(ChessBase chessToRemove)
         {
-
             _chesses.Remove(chessToRemove);
         }
 

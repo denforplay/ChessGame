@@ -124,7 +124,7 @@ namespace ChessLib.Models.Figures
 
         public override string ToString()
         {
-            return base.ToString();
+            return this.GetType().Name;
         }
     }
 }

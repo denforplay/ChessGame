@@ -11,6 +11,7 @@ namespace ChessLib.Models.Players
     /// </summary>
     public sealed class HumanPlayer
     {
+        private string _playerName;
         private readonly List<ChessBase> _chesses;
         private ChessColor _playerChessColor;
         private ChessBase _takenChess;
@@ -34,8 +35,14 @@ namespace ChessLib.Models.Players
         /// Chess player constructor
         /// </summary>
         /// <param name="chessColor">Chess color of chess player</param>
-        public HumanPlayer(ChessColor chessColor, PlayerConfiguration playerConfig)
+        public HumanPlayer(string playerName, ChessColor chessColor, PlayerConfiguration playerConfig)
         {
+            if (string.IsNullOrEmpty(playerName))
+            {
+                throw new ArgumentNullException(nameof(playerName));
+            }
+
+            _playerName = playerName;
             _chesses = playerConfig.ChessSet[chessColor];
             _playerChessColor = chessColor;
         }
@@ -82,7 +89,7 @@ namespace ChessLib.Models.Players
         /// <returns>A string that represents chess player</returns>
         public override string ToString()
         {
-            return $"Player with {_playerChessColor} color";
+            return $"Player {_playerName}";
         }
 
 

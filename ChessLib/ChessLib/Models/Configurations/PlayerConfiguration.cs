@@ -59,8 +59,8 @@ namespace ChessLib.Models.Configurations
             for (int i = 0; i < _gameBoard.BOARD_SIZE; i++)
             {
                 ChessBase pawn = new Pawn(_gameBoard.BoardCells[i, 6].ChessPosition, ChessColor.Black);
+                _gameBoard.BoardCells[i, 6].SetChess(pawn);
                 _chessSets[ChessColor.Black].Add(pawn);
-                _gameBoard.BoardCells[0, 7].SetChess(pawn);
             }
 
             ChessBase castle1 = new Castle(_gameBoard.BoardCells[0, 7].ChessPosition, ChessColor.Black);

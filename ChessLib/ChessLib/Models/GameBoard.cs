@@ -10,7 +10,7 @@ namespace ChessLib.Models
     /// </summary>
     public sealed class GameBoard
     {
-        public event Action<King> OnKingRemoved;
+        public event Action<ChessBase> OnChessRemoved;
         public readonly int BOARD_SIZE = 8;
 
         private BoardCell[,] _boardCells;
@@ -50,11 +50,7 @@ namespace ChessLib.Models
 
         public void RemoveChess(BoardCell onBoardCell)
         {
-            if (onBoardCell.Chess is King king)
-            {
-                OnKingRemoved?.Invoke(king);
-            }
-
+            OnChessRemoved?.Invoke(onBoardCell.Chess);
             onBoardCell.SetChess(new EmptyChess(onBoardCell.ChessPosition, ChessColor.None));
         }
 

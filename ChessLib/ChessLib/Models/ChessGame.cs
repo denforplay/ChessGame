@@ -22,23 +22,34 @@ namespace ChessLib.Models
         {
             _gameState = GameState.ACTIVE_GAME;
             _gameBoard = new GameBoard();
-            _gameBoard.OnKingRemoved += (king) => EndGame(king);
+            _gameBoard.OnChessRemoved += (chess) => EndGame(chess);
             InitializePlayers();
         }
 
-        public void EndGame(King king)
+        public void EndGame(ChessBase chess)
         {
-            if (king.ChessColor == ChessColor.White)
+            if (chess is King king)
             {
-                _gameLogger.Log("Black win");
-                _gameState = GameState.BLACK_WIN;
+                if (king.ChessColor == ChessColor.White)
+                {
+                    _gameLogger.Log("Black win");
+                    _gameState = GameState.BLACK_WIN;
+                }
+                else
+                {
+                    _gameLogger.Log("White win");
+                    _gameState = GameState.WHITE_WIN;
+                }
+            }
+
+            if (chess.ChessColor == ChessColor.Black)
+            {
+                _blackPlayer.RemoveChess(chess);
             }
             else
             {
-                _gameLogger.Log("White win");
-                _gameState = GameState.WHITE_WIN;
+                _whitePlayer.RemoveChess(chess);
             }
-
         }
 
         public void MakeStep(ChessPosition fromPositionChess, ChessPosition toPosition)
@@ -55,8 +66,8 @@ namespace ChessLib.Models
         private void InitializePlayers()
         {
             PlayerConfiguration playerConfig = new PlayerConfiguration(_gameBoard);
-            _whitePlayer = new HumanPlayer(ChessColor.White, playerConfig);
-            _blackPlayer = new HumanPlayer(ChessColor.Black, playerConfig);
+            _whitePlayer = new HumanPlayer("Vasya", ChessColor.White, playerConfig);
+            _blackPlayer = new HumanPlayer("Petya", ChessColor.Black, playerConfig);
             _currentTurnPlayer = _whitePlayer;
         }
     }

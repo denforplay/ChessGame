@@ -24,12 +24,25 @@ namespace ChessTests.ModelsTests
 
         [Theory]
         [InlineData(2, 2)]
-        public void CreateChessPosition_WithValidData(int horizontal, int vertical)
+        public void CreateChessPosition_WithValidIntData(int horizontal, int vertical)
         {
             var expected = (2, 2);
             ChessPosition chessPosition = new ChessPosition(horizontal, vertical);
             var actual = (chessPosition.Horizontal, chessPosition.Vertical);
             Assert.Equal(expected, actual);
         }
+
+
+        [Theory]
+        [InlineData('b', 2)]
+        public void CreateChessPosition_WithValidCharData(char horizontal, int vertical)
+        {
+            var expected = (2, 2);
+            ChessPosition chessPosition = new ChessPosition(horizontal, vertical);
+            var actual = (chessPosition.Horizontal, chessPosition.Vertical);
+            Assert.Equal(expected, actual);
+        }
+
+
     }
 }

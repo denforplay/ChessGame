@@ -1,6 +1,6 @@
 ﻿using ChessLib.Models.Enums;
+using System;
 using System.Collections.Generic;
-using System.Numerics;
 
 namespace ChessLib.Models.Figures
 {
@@ -47,6 +47,16 @@ namespace ChessLib.Models.Figures
         }
 
         /// <summary>
+        /// Chess copy constructor
+        /// </summary>
+        /// <param name="otherChess">Chess from where copy information</param>
+        public ChessBase(ChessBase otherChess)
+        {
+            CurrentPosition = otherChess.CurrentPosition;
+            _chessColor = otherChess.ChessColor;
+        }
+
+        /// <summary>
         /// Chess move method
         /// </summary>
         /// <param name="chessPosition">Where move chess position</param>
@@ -65,6 +75,10 @@ namespace ChessLib.Models.Figures
                 gameBoard.BoardCells[nextPosition.Horizontal - 1, nextPosition.Vertical - 1].SetChess(this);
                 CurrentPosition = nextPosition;
             }
+            else
+            {
+                throw new ArgumentException();
+            }
         }
 
         /// <summary>
@@ -73,7 +87,7 @@ namespace ChessLib.Models.Figures
         /// <returns>List of all possible steps that figure can make</returns>
         public virtual List<ChessPosition> GetPossibleSteps(GameBoard gameBoard)
         {
-            List<ChessPosition> nextSteps = new List<ChessPosition>();
+            List<ChessPosition> nextSteps = new();
 
             for (int i = 0; i < _moveDirections.Length; i++)
             {
@@ -103,6 +117,11 @@ namespace ChessLib.Models.Figures
             return nextSteps;
         }
 
+        /// <summary>
+        /// Check if this chess equals to other object
+        /// </summary>
+        /// <param name="obj">Object to compare</param>
+        /// <returns>True if chesses are equals, other return false</returns>
         public override bool Equals(object obj)
         {
             if (obj is ChessBase otherChess)
@@ -114,6 +133,10 @@ namespace ChessLib.Models.Figures
             return false;
         }
 
+        /// <summary>
+        /// Generate hash code
+        /// </summary>
+        /// <returns>Hash code</returns>
         public override int GetHashCode()
         {
             int hash = 2441;
@@ -122,9 +145,13 @@ namespace ChessLib.Models.Figures
             return hash;
         }
 
+        /// <summary>
+        /// Returns a string that represents chess figure.
+        /// </summary>
+        /// <returns>A string that represents chess figure</returns>
         public override string ToString()
         {
-            return this.GetType().Name;
+            return $"{ChessColor} {GetType().Name} {CurrentPosition}";
         }
     }
 }

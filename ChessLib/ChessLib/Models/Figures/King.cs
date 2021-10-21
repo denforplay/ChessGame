@@ -1,12 +1,38 @@
 ﻿using ChessLib.Models.Enums;
 using System.Collections.Generic;
 using System.Linq;
-using System.Numerics;
 
 namespace ChessLib.Models.Figures
 {
-    public class King : ChessBase
+    /// <summary>
+    /// Represents king figure
+    /// </summary>
+    public sealed class King : ChessBase
     {
+        /// <summary>
+        /// Copy constructor to create king from other king
+        /// </summary>
+        /// <param name="otherChess">King from which copy info</param>
+        public King(King otherChess) : base(otherChess)
+        {
+            _moveDirections = new Vector2<int>[]
+            {
+                 new Vector2<int>(0, 1),
+                 new Vector2<int>(1, 1),
+                 new Vector2<int>(1, 0),
+                 new Vector2<int>(1, -1),
+                 new Vector2<int>(0, -1),
+                 new Vector2<int>(-1, -1),
+                 new Vector2<int>(-1, 0),
+                 new Vector2<int>(-1, 1)
+            };
+        }
+
+        /// <summary>
+        /// King constructor
+        /// </summary>
+        /// <param name="startPosition">Start position</param>
+        /// <param name="color">Figure color</param>
         public King(ChessPosition startPosition, ChessColor color) : base(startPosition, color)
         {
             _moveDirections = new Vector2<int>[]
@@ -33,7 +59,7 @@ namespace ChessLib.Models.Figures
                     enemyChessesPossibleSteps = enemyChessesPossibleSteps.Concat(chess.GetPossibleSteps(gameBoard));
                 }
             }
-            List<ChessPosition> nextSteps = new List<ChessPosition>();
+            List<ChessPosition> nextSteps = new();
 
             for (int i = 0; i < _moveDirections.Length; i++)
             {

@@ -1,18 +1,22 @@
-﻿using ChessLib.Models.Enums;
+﻿using ChessLib.Models.Configurations;
+using ChessLib.Models.Enums;
 using ChessLib.Models.Figures;
 using ChessLib.Models.Loggers;
 using ChessLib.Models.Players;
 
 namespace ChessLib.Models
 {
-    public class ChessGame
+    public sealed class ChessGame
     {
         private GameBoard _gameBoard;
-        private ChessPlayer _whitePlayer;
-        private ChessPlayer _blackPlayer;
-        private ChessPlayer _currentTurnPlayer;
+        private HumanPlayer _whitePlayer;
+        private HumanPlayer _blackPlayer;
+        private HumanPlayer _currentTurnPlayer;
         private GameState _gameState;
         private ILogger _gameLogger = new TxtLogger();
+
+        public GameState GameState => _gameState;
+        public GameBoard GameBoard => _gameBoard;
 
         public ChessGame()
         {
@@ -26,12 +30,15 @@ namespace ChessLib.Models
         {
             if (king.ChessColor == ChessColor.White)
             {
+                _gameLogger.Log("Black win");
                 _gameState = GameState.BLACK_WIN;
             }
             else
             {
+                _gameLogger.Log("White win");
                 _gameState = GameState.WHITE_WIN;
             }
+
         }
 
         public void MakeStep(ChessPosition fromPositionChess, ChessPosition toPosition)
@@ -47,10 +54,9 @@ namespace ChessLib.Models
         /// </summary>
         private void InitializePlayers()
         {
-            _whitePlayer = new ChessPlayer(ChessColor.White);
-            _blackPlayer = new ChessPlayer(ChessColor.Black);
-            _whitePlayer.Initialize(_gameBoard);
-            _blackPlayer.Initialize(_gameBoard);
+            PlayerConfiguration playerConfig = new PlayerConfiguration(_gameBoard);
+            _whitePlayer = new HumanPlayer(ChessColor.White, playerConfig);
+            _blackPlayer = new HumanPlayer(ChessColor.Black, playerConfig);
             _currentTurnPlayer = _whitePlayer;
         }
     }

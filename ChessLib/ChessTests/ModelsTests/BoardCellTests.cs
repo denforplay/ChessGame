@@ -23,7 +23,7 @@ namespace ChessTests.ModelsTests
         [Fact]
         public void CreateBoardCell_WithValidData()
         {
-            string expected = "";
+            string expected = "X: 1, Y: 1 None EmptyChess X: 1, Y: 1";
             var chessPos = new ChessPosition(1, 1);
             BoardCell cell = new BoardCell(chessPos, new EmptyChess(chessPos, ChessColor.None));
             Assert.Equal(expected, cell.ToString());

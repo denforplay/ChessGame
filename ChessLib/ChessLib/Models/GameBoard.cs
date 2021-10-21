@@ -8,7 +8,7 @@ namespace ChessLib.Models
     /// <summary>
     /// Represents game board
     /// </summary>
-    public class GameBoard
+    public sealed class GameBoard
     {
         public event Action<King> OnKingRemoved;
         public readonly int BOARD_SIZE = 8;

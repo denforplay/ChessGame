@@ -1,13 +1,18 @@
 ﻿using ChessLib.Models.Enums;
-using System;
 using System.Collections.Generic;
-using System.Numerics;
 
 namespace ChessLib.Models.Figures
 {
-    public class Knight : ChessBase
+    /// <summary>
+    /// Represents knight figure
+    /// </summary>
+    public sealed class Knight : ChessBase
     {
-        public Knight(ChessPosition startPosition, ChessColor color) : base(startPosition, color)
+        /// <summary>
+        /// Copy constructor to create knight from other pawn
+        /// </summary>
+        /// <param name="otherChess">Pawn from which copy info</param>
+        public Knight(Pawn otherChess) : base(otherChess)
         {
             _moveDirections = new Vector2<int>[]
                 {
@@ -20,12 +25,32 @@ namespace ChessLib.Models.Figures
                     new Vector2<int>(-1, -2),
                     new Vector2<int>(-2, -1)
                 };
-
         }
 
+        /// <summary>
+        /// Knight constructor
+        /// </summary>
+        /// <param name="startPosition">Start position</param>
+        /// <param name="color">Figure color</param>
+        public Knight(ChessPosition startPosition, ChessColor color) : base(startPosition, color)
+        {
+            _moveDirections = new Vector2<int>[]
+                {
+                    new Vector2<int>(1, 2),
+                    new Vector2<int>(2, 1),
+                    new Vector2<int>(1, -2),
+                    new Vector2<int>(-1, 2),
+                    new Vector2<int>(-2, 1),
+                    new Vector2<int>(2, -1),
+                    new Vector2<int>(-1, -2),
+                    new Vector2<int>(-2, -1)
+                };
+
+        }
+        
         public override List<ChessPosition> GetPossibleSteps(GameBoard gameBoard)
         {
-            List<ChessPosition> nextSteps = new List<ChessPosition>();
+            List<ChessPosition> nextSteps = new();
 
             for (int i = 0; i < _moveDirections.Length; i++)
             {
@@ -44,10 +69,10 @@ namespace ChessLib.Models.Figures
                 else if (chess.ChessColor != this.ChessColor)
                 {
                     nextSteps.Add(new ChessPosition(nextPosition.Horizontal, nextPosition.Vertical));
-                    break;
+                    continue;
                 }
                 else
-                    break;
+                    continue;
             }
 
             return nextSteps;

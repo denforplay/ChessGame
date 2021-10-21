@@ -5,7 +5,7 @@ namespace ChessLib.Models
     /// <summary>
     /// Class represents chess position
     /// </summary>
-    public class ChessPosition
+    public sealed class ChessPosition
     {
         private int _horizontal;
         private int _vertical;
@@ -19,6 +19,12 @@ namespace ChessLib.Models
         {
             Vertical = verticalPosition;
             Horizontal = horizontalPosition;
+        }
+
+        public ChessPosition(char horizontalPosition, int verticalPosition)
+        {
+            Vertical = verticalPosition;
+            Horizontal = Math.Abs('a' - Char.ToLower(horizontalPosition)) + 1;
         }
 
         /// <summary>

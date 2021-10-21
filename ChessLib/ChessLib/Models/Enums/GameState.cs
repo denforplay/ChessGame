@@ -1,5 +1,8 @@
 ﻿namespace ChessLib.Models.Enums
 {
+    /// <summary>
+    /// Game states
+    /// </summary>
     public enum GameState
     {
         ACTIVE_GAME,

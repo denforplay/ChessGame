@@ -3,7 +3,10 @@ using System.IO;
 
 namespace ChessLib.Models.Loggers
 {
-    public class TxtLogger : ILogger
+    /// <summary>
+    /// Class realize logging in text file
+    /// </summary>
+    public sealed class TxtLogger : ILogger
     {
         private const string FILE_EXTENSION = ".txt";
         private string _currentDirectory;
@@ -11,6 +14,9 @@ namespace ChessLib.Models.Loggers
         private string _filename;
         private string _filepath;
 
+        /// <summary>
+        /// Text logger constructor
+        /// </summary>
         public TxtLogger()
         {
             _currentDirectory = Directory.GetCurrentDirectory() + "/Logs";
@@ -29,11 +35,15 @@ namespace ChessLib.Models.Loggers
             }
         }
 
+        /// <summary>
+        /// Logging input message in text file
+        /// </summary>
+        /// <param name="message">Input message</param>
         public void Log(string message)
         {
             using (StreamWriter sw = File.AppendText(_filepath))
             {
-                sw.WriteLine(message + " |||| " + DateTime.Now);
+                sw.WriteLine(String.Format("{0, -65} || {1}", message, DateTime.Now));
             }
         }
     }

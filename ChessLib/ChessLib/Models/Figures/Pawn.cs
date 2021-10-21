@@ -3,17 +3,33 @@ using System.Collections.Generic;
 
 namespace ChessLib.Models.Figures
 {
-    public class Pawn : ChessBase
+    /// <summary>
+    /// Represents pawn figure
+    /// </summary>
+    public sealed class Pawn : ChessBase
     {
         private bool _isFirstStep = true;
 
+        /// <summary>
+        /// Copy constructor to create pawn from other pawn
+        /// </summary>
+        /// <param name="otherChess">Pawn from which copy info</param>
+        public Pawn(Pawn otherChess) : base(otherChess)
+        {
+        }
+
+        /// <summary>
+        /// Pawn constructor
+        /// </summary>
+        /// <param name="startPosition">Start position</param>
+        /// <param name="color">Figure color</param>
         public Pawn(ChessPosition startPosition, ChessColor color) : base(startPosition, color)
         {
         }
 
         public override List<ChessPosition> GetPossibleSteps(GameBoard gameBoard)
         {
-            List<ChessPosition> nextSteps = new List<ChessPosition>();
+            List<ChessPosition> nextSteps = new();
 
             switch (ChessColor)
             {

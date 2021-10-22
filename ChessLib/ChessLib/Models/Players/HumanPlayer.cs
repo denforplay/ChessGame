@@ -63,10 +63,20 @@ namespace ChessLib.Models.Players
         /// <param name="gameBoard">Game board</param>
         public void MoveChess(ChessPosition moveTo, GameBoard gameBoard)
         {
-            if (_takenChess is not null)
+            if (_takenChess is not EmptyChess)
             {
                 _takenChess.Move(moveTo, gameBoard);
-                _takenChess = null;
+                if (_takenChess is Pawn pawn && _takenChess.CurrentPosition.Vertical == gameBoard.BOARD_SIZE)
+                {
+                    var boardCell = gameBoard.BoardCells[_takenChess.CurrentPosition.Horizontal - 1, _takenChess.CurrentPosition.Vertical - 1];
+                    gameBoard.BoardCells[_takenChess.CurrentPosition.Horizontal - 1, _takenChess.CurrentPosition.Vertical - 1].SetChess(new Queen(pawn));
+                    Chesses.Remove(pawn);
+                    Chesses.Add(boardCell.Chess);
+                }
+                else
+                {
+                    _takenChess = new EmptyChess(_takenChess.CurrentPosition, _takenChess.ChessColor);
+                }
             }
             else
             {
@@ -92,7 +102,11 @@ namespace ChessLib.Models.Players
             return $"Player {_playerName}";
         }
 
-
+        /// <summary>
+        /// Check if this player equals to other object
+        /// </summary>
+        /// <param name="obj">Object to compare</param>
+        /// <returns>True if players are equals, other return false</returns>
         public override bool Equals(object obj)
         {
             if (obj is HumanPlayer otherPlayer)

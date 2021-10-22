@@ -117,6 +117,10 @@ namespace ChessLib.Models.Players
             return false;
         }
 
+        /// <summary>
+        /// Generate hash code
+        /// </summary>
+        /// <returns>Hash code</returns>
         public override int GetHashCode()
         {
             int hash = 0;

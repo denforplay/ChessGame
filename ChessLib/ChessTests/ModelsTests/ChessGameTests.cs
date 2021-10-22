@@ -20,7 +20,22 @@ namespace ChessTests.ModelsTests
             game.MakeStep(new ChessPosition('h', 5), new ChessPosition('f', 7));
             game.MakeStep(new ChessPosition('h', 7), new ChessPosition('h', 6));
             game.MakeStep(new ChessPosition('f', 7), new ChessPosition('e', 8));
-            Assert.Equal(GameState.WHITE_WIN, game.GameState);
+            Assert.Equal(GameState.WHITE_WIN, ChessGame.GameState);
+        }
+
+
+        [Fact]
+        public void ChessGame_TestBlackUnderCheckState()
+        {
+            ChessGame game = new ChessGame();
+            game.MakeStep(new ChessPosition('e', 2), new ChessPosition('e', 4));
+            game.MakeStep(new ChessPosition('e', 7), new ChessPosition('e', 5));
+            game.MakeStep(new ChessPosition('d', 1), new ChessPosition('h', 5));
+            game.MakeStep(new ChessPosition('b', 8), new ChessPosition('c', 6));
+            game.MakeStep(new ChessPosition('f', 1), new ChessPosition('c', 4));
+            game.MakeStep(new ChessPosition('g', 8), new ChessPosition('f', 6));
+            game.MakeStep(new ChessPosition('h', 5), new ChessPosition('f', 7));
+            Assert.Equal(GameState.BLACK_UNDER_CHECK, ChessGame.GameState);
         }
 
         [Fact]

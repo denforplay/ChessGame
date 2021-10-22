@@ -12,10 +12,10 @@ namespace ChessLib.Models
         private HumanPlayer _whitePlayer;
         private HumanPlayer _blackPlayer;
         private HumanPlayer _currentTurnPlayer;
-        private GameState _gameState;
+        private static GameState _gameState;
         private ILogger _gameLogger = new TxtLogger();
 
-        public GameState GameState => _gameState;
+        public static GameState GameState => _gameState;
         public GameBoard GameBoard => _gameBoard;
 
         public ChessGame()
@@ -57,6 +57,23 @@ namespace ChessLib.Models
             _currentTurnPlayer.TakeChessFigure(fromPositionChess);
             _gameLogger.Log($"{_currentTurnPlayer} move {_currentTurnPlayer.TakenChess} from {fromPositionChess} to {toPosition}");
             _currentTurnPlayer.MoveChess(toPosition, _gameBoard);
+            if (_gameState != GameState.WHITE_WIN && _gameState != GameState.BLACK_WIN)
+            {
+                var possibleSteps = _gameBoard.BoardCells[toPosition.Horizontal - 1, toPosition.Vertical - 1].Chess.GetPossibleSteps(_gameBoard);
+                foreach (var step in possibleSteps)
+                {
+                    if (_gameBoard.BoardCells[step.Horizontal - 1, step.Vertical - 1].Chess is King king)
+                    {
+                        _gameState = king.ChessColor == ChessColor.White ? GameState.WHITE_UNDER_CHECK : GameState.BLACK_UNDER_CHECK;
+                        break;
+                    }
+                    else
+                    {
+                        _gameState = GameState.ACTIVE_GAME;
+                    }
+                }
+            }
+            
             _currentTurnPlayer = _currentTurnPlayer == _whitePlayer ? _blackPlayer : _whitePlayer;
         }
 

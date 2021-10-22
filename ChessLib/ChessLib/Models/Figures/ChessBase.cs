@@ -64,7 +64,6 @@ namespace ChessLib.Models.Figures
         {
             if (GetPossibleSteps(gameBoard).Contains(nextPosition))
             {
-
                 gameBoard.BoardCells[CurrentPosition.Horizontal - 1, CurrentPosition.Vertical - 1].SetChess(new EmptyChess(CurrentPosition, ChessColor.None));
 
                 if (gameBoard.BoardCells[nextPosition.Horizontal - 1, nextPosition.Vertical - 1].Chess is not EmptyChess)
@@ -103,7 +102,12 @@ namespace ChessLib.Models.Figures
                     ChessBase chess = gameBoard.BoardCells[nextPosition.Horizontal - 1, nextPosition.Vertical - 1].Chess;
 
                     if (chess is EmptyChess)
-                        nextSteps.Add(new ChessPosition(nextPosition.Horizontal, nextPosition.Vertical));
+                    {
+                        var pos = new ChessPosition(nextPosition.Horizontal, nextPosition.Vertical);
+                        
+                        nextSteps.Add(pos);
+
+                    }
                     else if (chess.ChessColor != this.ChessColor)
                     {
                         nextSteps.Add(new ChessPosition(nextPosition.Horizontal, nextPosition.Vertical));

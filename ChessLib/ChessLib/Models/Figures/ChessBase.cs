@@ -1,4 +1,5 @@
 ﻿using ChessLib.Models.Enums;
+using ChessLib.Models.Figures.FigureMovements;
 using System;
 using System.Collections.Generic;
 
@@ -12,6 +13,7 @@ namespace ChessLib.Models.Figures
         private ChessColor _chessColor;
         private ChessPosition _currentChessPosition;
         protected Vector2<int>[] _moveDirections;
+        protected IMovement _movement;
 
         /// <summary>
         /// Represents current chess color.
@@ -64,8 +66,12 @@ namespace ChessLib.Models.Figures
         /// <param name="chessPosition">Where move chess position</param>
         public virtual void Move(ChessPosition nextPosition, GameBoard gameBoard)
         {
-            if (GetPossibleSteps(gameBoard).Contains(nextPosition))
+            var ll = _movement.GetPossibleSteps(this, _moveDirections, gameBoard);
+            if (ll.Contains(nextPosition))
             {
+                if (_movement is PawnMovement pawnMovement)
+                    pawnMovement.IsFirstStep = false;
+
                 gameBoard.BoardCells[CurrentPosition.Horizontal - 1, CurrentPosition.Vertical - 1].SetChess(new EmptyChess(CurrentPosition, ChessColor.None));
 
                 if (gameBoard.BoardCells[nextPosition.Horizontal - 1, nextPosition.Vertical - 1].Chess is not EmptyChess)
@@ -80,44 +86,6 @@ namespace ChessLib.Models.Figures
             {
                 throw new ArgumentException();
             }
-        }
-
-        /// <summary>
-        /// Method to get all possible steps for chess
-        /// </summary>
-        /// <returns>List of all possible steps that figure can make</returns>
-        public virtual List<ChessPosition> GetPossibleSteps(GameBoard gameBoard)
-        {
-            List<ChessPosition> nextSteps = new();
-
-            for (int i = 0; i < _moveDirections.Length; i++)
-            {
-                var nextPosition = new ChessPosition(CurrentPosition.Horizontal, CurrentPosition.Vertical);
-                while (nextPosition.Vertical <= 8 && nextPosition.Vertical >= 1
-&& nextPosition.Horizontal >= 1 && nextPosition.Horizontal <= 8)
-                {
-                    if (!gameBoard.IsPositionOnBoard(nextPosition.Horizontal + _moveDirections[i].X - 1, nextPosition.Vertical + _moveDirections[i].Y - 1))
-                        break;
-                    nextPosition.Horizontal += _moveDirections[i].X;
-                    nextPosition.Vertical += _moveDirections[i].Y;
-
-                    ChessBase chess = gameBoard.BoardCells[nextPosition.Horizontal - 1, nextPosition.Vertical - 1].Chess;
-
-                    if (chess is EmptyChess)
-                    {
-                        nextSteps.Add(new ChessPosition(nextPosition.Horizontal, nextPosition.Vertical));
-                    }
-                    else if (chess.ChessColor != this.ChessColor)
-                    {
-                        nextSteps.Add(new ChessPosition(nextPosition.Horizontal, nextPosition.Vertical));
-                        break;
-                    }
-                    else
-                        break;
-                }
-            }
-
-            return nextSteps;
         }
 
         protected abstract void InitializeMoveDirections();

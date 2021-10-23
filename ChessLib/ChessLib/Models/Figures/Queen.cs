@@ -1,4 +1,5 @@
 ﻿using ChessLib.Models.Enums;
+using ChessLib.Models.Figures.FigureMovements;
 
 namespace ChessLib.Models.Figures
 {
@@ -13,6 +14,7 @@ namespace ChessLib.Models.Figures
         /// <param name="otherChess">Pawn from which copy info</param>
         public Queen(Pawn otherChess) : base(otherChess)
         {
+            _movement = new AllDirectionLineMovement();
         }
 
         /// <summary>
@@ -22,6 +24,7 @@ namespace ChessLib.Models.Figures
         /// <param name="color">Figure color</param>
         public Queen(ChessPosition startPosition, ChessColor color) : base(startPosition, color)
         {
+            _movement = new AllDirectionLineMovement();
         }
 
         protected override void InitializeMoveDirections()

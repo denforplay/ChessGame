@@ -7,7 +7,6 @@ namespace ChessTests.ModelsTests.ChessModelsTests
     public class PawnTests
     {
         [Theory]
-        [InlineData('a', 2, 'b', 3, "None EmptyChess X: 2, Y: 3")]
         [InlineData('a', 2, 'a', 3, "White Pawn X: 1, Y: 3")]
         [InlineData('a', 2, 'a', 4, "White Pawn X: 1, Y: 4")]
         public void PawnMovement_TestPossibilityMovements(char startX, int startY, char endX, int endY, string expected)

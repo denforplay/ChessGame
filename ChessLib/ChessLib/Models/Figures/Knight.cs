@@ -14,17 +14,6 @@ namespace ChessLib.Models.Figures
         /// <param name="otherChess">Pawn from which copy info</param>
         public Knight(Pawn otherChess) : base(otherChess)
         {
-            _moveDirections = new Vector2<int>[]
-                {
-                    new Vector2<int>(1, 2),
-                    new Vector2<int>(2, 1),
-                    new Vector2<int>(1, -2),
-                    new Vector2<int>(-2, 1),
-                    new Vector2<int>(-1, 2),
-                    new Vector2<int>(2, -1),
-                    new Vector2<int>(-1, -2),
-                    new Vector2<int>(-2, -1)
-                };
         }
 
         /// <summary>
@@ -34,18 +23,6 @@ namespace ChessLib.Models.Figures
         /// <param name="color">Figure color</param>
         public Knight(ChessPosition startPosition, ChessColor color) : base(startPosition, color)
         {
-            _moveDirections = new Vector2<int>[]
-                {
-                    new Vector2<int>(1, 2),
-                    new Vector2<int>(2, 1),
-                    new Vector2<int>(1, -2),
-                    new Vector2<int>(-1, 2),
-                    new Vector2<int>(-2, 1),
-                    new Vector2<int>(2, -1),
-                    new Vector2<int>(-1, -2),
-                    new Vector2<int>(-2, -1)
-                };
-
         }
         
         public override List<ChessPosition> GetPossibleSteps(GameBoard gameBoard)
@@ -76,6 +53,21 @@ namespace ChessLib.Models.Figures
             }
 
             return nextSteps;
+        }
+
+        protected override void InitializeMoveDirections()
+        {
+            _moveDirections = new Vector2<int>[]
+            {
+                    new Vector2<int>(1, 2),
+                    new Vector2<int>(2, 1),
+                    new Vector2<int>(1, -2),
+                    new Vector2<int>(-1, 2),
+                    new Vector2<int>(-2, 1),
+                    new Vector2<int>(2, -1),
+                    new Vector2<int>(-1, -2),
+                    new Vector2<int>(-2, -1)
+            };
         }
     }
 }

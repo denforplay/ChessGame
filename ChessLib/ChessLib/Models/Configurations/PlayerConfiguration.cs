@@ -6,6 +6,10 @@ namespace ChessLib.Models.Configurations
 {
     public sealed class PlayerConfiguration
     {
+        private const int BLACK_PAWN_VERTICAL = 6;
+        private const int BLACK_BACK_ROW = 7;
+        private const int WHITE_PAWN_VERTICAL = 1;
+        private const int WHITE_BACK_ROW = 0;
         private GameBoard _gameBoard;
         private Dictionary<ChessColor, List<ChessBase>> _chessSets = new Dictionary<ChessColor, List<ChessBase>>();
         public Dictionary<ChessColor, List<ChessBase>> ChessSet => _chessSets;
@@ -14,82 +18,45 @@ namespace ChessLib.Models.Configurations
             _gameBoard = gameBoard;
             _chessSets[ChessColor.White] = new List<ChessBase>();
             _chessSets[ChessColor.Black] = new List<ChessBase>();
-            ConfigureWhiteChesses();
-            ConfigureBlackChesses();
+            ConfigureChesses(ChessColor.White);
+            ConfigureChesses(ChessColor.Black);
         }
 
-        private void ConfigureWhiteChesses()
+        private void ConfigureChesses(ChessColor chessColor)
         {
+            int pawnVertical = chessColor == ChessColor.Black ? BLACK_PAWN_VERTICAL : WHITE_PAWN_VERTICAL;
+            int pawnBackRow = chessColor == ChessColor.Black ? BLACK_BACK_ROW : WHITE_BACK_ROW;
             for (int i = 0; i < _gameBoard.BOARD_SIZE; i++)
             {
-                ChessBase chess = new Pawn(_gameBoard.BoardCells[i, 1].ChessPosition, ChessColor.White);
-                _gameBoard.BoardCells[i, 1].SetChess(chess);
-                _chessSets[ChessColor.White].Add(chess);
+                ChessBase chess = new Pawn(_gameBoard.BoardCells[i, pawnVertical].ChessPosition, chessColor);
+                _gameBoard.BoardCells[i, pawnVertical].SetChess(chess);
+                _chessSets[chessColor].Add(chess);
             }
 
-            ChessBase castle1 = new Castle(_gameBoard.BoardCells[0, 0].ChessPosition, ChessColor.White);
-            _chessSets[ChessColor.White].Add(castle1);
-            _gameBoard.BoardCells[0, 0].SetChess(castle1);
-            ChessBase castle2 = new Castle(_gameBoard.BoardCells[_gameBoard.BOARD_SIZE - 1, 0].ChessPosition, ChessColor.White);
-            _chessSets[ChessColor.White].Add(castle2);
-            _gameBoard.BoardCells[_gameBoard.BOARD_SIZE - 1, 0].SetChess(castle2);
-
-            ChessBase knight1 = new Knight(_gameBoard.BoardCells[1, 0].ChessPosition, ChessColor.White);
-            _chessSets[ChessColor.White].Add(knight1);
-            _gameBoard.BoardCells[1, 0].SetChess(knight1);
-            ChessBase knight2 = new Knight(_gameBoard.BoardCells[6, 0].ChessPosition, ChessColor.White);
-            _chessSets[ChessColor.White].Add(knight2);
-            _gameBoard.BoardCells[6, 0].SetChess(knight2);
-            ChessBase bishop1 = new Bishop(_gameBoard.BoardCells[2, 0].ChessPosition, ChessColor.White);
-            _chessSets[ChessColor.White].Add(bishop1);
-            _gameBoard.BoardCells[2, 0].SetChess(bishop1);
-            ChessBase bishop2 = new Bishop(_gameBoard.BoardCells[5, 0].ChessPosition, ChessColor.White);
-            _chessSets[ChessColor.White].Add(bishop2);
-            _gameBoard.BoardCells[5, 0].SetChess(bishop2);
-            ChessBase queen = new Queen(_gameBoard.BoardCells[3, 0].ChessPosition, ChessColor.White);
-            _chessSets[ChessColor.White].Add(queen);
-            _gameBoard.BoardCells[3, 0].SetChess(queen);
-            ChessBase king = new King(_gameBoard.BoardCells[4, 0].ChessPosition, ChessColor.White);
-            _chessSets[ChessColor.White].Add(king);
-            _gameBoard.BoardCells[4, 0].SetChess(king);
-        }
-
-        private void ConfigureBlackChesses()
-        {
-            for (int i = 0; i < _gameBoard.BOARD_SIZE; i++)
-            {
-                ChessBase pawn = new Pawn(_gameBoard.BoardCells[i, 6].ChessPosition, ChessColor.Black);
-                _gameBoard.BoardCells[i, 6].SetChess(pawn);
-                _chessSets[ChessColor.Black].Add(pawn);
-            }
-
-            ChessBase castle1 = new Castle(_gameBoard.BoardCells[0, 7].ChessPosition, ChessColor.Black);
-            _chessSets[ChessColor.Black].Add(castle1);
-            _gameBoard.BoardCells[0, 7].SetChess(castle1);
-            ChessBase castle2 = new Castle(_gameBoard.BoardCells[_gameBoard.BOARD_SIZE - 1, _gameBoard.BOARD_SIZE - 1].ChessPosition, ChessColor.Black);
-            _chessSets[ChessColor.Black].Add(castle2);
-            _gameBoard.BoardCells[_gameBoard.BOARD_SIZE - 1, _gameBoard.BOARD_SIZE - 1].SetChess(castle2);
-
-            ChessBase knight1 = new Knight(_gameBoard.BoardCells[1, 7].ChessPosition, ChessColor.Black);
-            _chessSets[ChessColor.Black].Add(knight1);
-            _gameBoard.BoardCells[1, 7].SetChess(knight1);
-            ChessBase knight2 = new Knight(_gameBoard.BoardCells[6, 7].ChessPosition, ChessColor.Black);
-            _chessSets[ChessColor.Black].Add(knight2);
-            _gameBoard.BoardCells[6, 7].SetChess(knight2);
-
-            ChessBase bishop1 = new Bishop(_gameBoard.BoardCells[2, 7].ChessPosition, ChessColor.Black);
-            _chessSets[ChessColor.Black].Add(bishop1);
-            _gameBoard.BoardCells[2, 7].SetChess(bishop1);
-            ChessBase bishop2 = new Bishop(_gameBoard.BoardCells[5, 7].ChessPosition, ChessColor.Black);
-            _chessSets[ChessColor.Black].Add(bishop2);
-            _gameBoard.BoardCells[5, 7].SetChess(bishop2);
-
-            ChessBase queen = new Queen(_gameBoard.BoardCells[3, 7].ChessPosition, ChessColor.Black);
-            _chessSets[ChessColor.Black].Add(queen);
-            _gameBoard.BoardCells[3, 7].SetChess(queen);
-            ChessBase king = new King(_gameBoard.BoardCells[4, 7].ChessPosition, ChessColor.Black);
-            _chessSets[ChessColor.Black].Add(king);
-            _gameBoard.BoardCells[4, 7].SetChess(king);
+            ChessBase castle1 = new Castle(_gameBoard.BoardCells[0, pawnBackRow].ChessPosition, chessColor);
+            _chessSets[chessColor].Add(castle1);
+            _gameBoard.BoardCells[0, pawnBackRow].SetChess(castle1);
+            ChessBase castle2 = new Castle(_gameBoard.BoardCells[_gameBoard.BOARD_SIZE - 1, pawnBackRow].ChessPosition, chessColor);
+            _chessSets[chessColor].Add(castle2);
+            _gameBoard.BoardCells[_gameBoard.BOARD_SIZE - 1, pawnBackRow].SetChess(castle2);
+            ChessBase knight1 = new Knight(_gameBoard.BoardCells[1, pawnBackRow].ChessPosition, chessColor);
+            _chessSets[chessColor].Add(knight1);
+            _gameBoard.BoardCells[1, pawnBackRow].SetChess(knight1);
+            ChessBase knight2 = new Knight(_gameBoard.BoardCells[6, pawnBackRow].ChessPosition, chessColor);
+            _chessSets[chessColor].Add(knight2);
+            _gameBoard.BoardCells[6, pawnBackRow].SetChess(knight2);
+            ChessBase bishop1 = new Bishop(_gameBoard.BoardCells[2, pawnBackRow].ChessPosition, chessColor);
+            _chessSets[chessColor].Add(bishop1);
+            _gameBoard.BoardCells[2, pawnBackRow].SetChess(bishop1);
+            ChessBase bishop2 = new Bishop(_gameBoard.BoardCells[5, pawnBackRow].ChessPosition, chessColor);
+            _chessSets[chessColor].Add(bishop2);
+            _gameBoard.BoardCells[5, pawnBackRow].SetChess(bishop2);
+            ChessBase queen = new Queen(_gameBoard.BoardCells[3, pawnBackRow].ChessPosition, chessColor);
+            _chessSets[chessColor].Add(queen);
+            _gameBoard.BoardCells[3, pawnBackRow].SetChess(queen);
+            ChessBase king = new King(_gameBoard.BoardCells[4, pawnBackRow].ChessPosition, chessColor);
+            _chessSets[chessColor].Add(king);
+            _gameBoard.BoardCells[4, pawnBackRow].SetChess(king);
         }
     }
 }

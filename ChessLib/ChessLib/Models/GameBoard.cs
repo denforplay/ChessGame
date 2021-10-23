@@ -70,6 +70,5 @@ namespace ChessLib.Models
                 }
             }
         }
-
     }
 }

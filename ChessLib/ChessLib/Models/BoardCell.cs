@@ -21,7 +21,6 @@ namespace ChessLib.Models
         /// </summary>
         public ChessBase Chess => _chess;
 
-
         /// <summary>
         /// Board cell constructor
         /// </summary>

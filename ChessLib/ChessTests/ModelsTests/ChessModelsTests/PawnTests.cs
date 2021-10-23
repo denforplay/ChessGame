@@ -48,7 +48,7 @@ namespace ChessTests.ModelsTests.ChessModelsTests
         [Fact]
         public void PawnReplaceByQueen_ReturnsTrue()
         {
-            string expected = "White Pawn X: 1, Y: 5";
+            string expected = "White Queen X: 1, Y: 8";
             ChessGame game = new ChessGame();
             game.MakeStep(new ChessPosition('b', 2), new ChessPosition('b', 4));
             game.MakeStep(new ChessPosition('a', 7), new ChessPosition('a', 5));

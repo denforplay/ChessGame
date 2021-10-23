@@ -44,6 +44,7 @@ namespace ChessLib.Models.Figures
         {
             _currentChessPosition = startPosition;
             _chessColor = color;
+            InitializeMoveDirections();
         }
 
         /// <summary>
@@ -54,6 +55,7 @@ namespace ChessLib.Models.Figures
         {
             CurrentPosition = otherChess.CurrentPosition;
             _chessColor = otherChess.ChessColor;
+            InitializeMoveDirections();
         }
 
         /// <summary>
@@ -103,10 +105,7 @@ namespace ChessLib.Models.Figures
 
                     if (chess is EmptyChess)
                     {
-                        var pos = new ChessPosition(nextPosition.Horizontal, nextPosition.Vertical);
-                        
-                        nextSteps.Add(pos);
-
+                        nextSteps.Add(new ChessPosition(nextPosition.Horizontal, nextPosition.Vertical));
                     }
                     else if (chess.ChessColor != this.ChessColor)
                     {
@@ -120,6 +119,8 @@ namespace ChessLib.Models.Figures
 
             return nextSteps;
         }
+
+        protected abstract void InitializeMoveDirections();
 
         /// <summary>
         /// Check if this chess equals to other object

@@ -13,17 +13,6 @@ namespace ChessLib.Models.Figures
         /// <param name="otherChess">Pawn from which copy info</param>
         public Queen(Pawn otherChess) : base(otherChess)
         {
-            _moveDirections = new Vector2<int>[]
-            {
-                 new Vector2<int>(-1, 1),
-                 new Vector2<int>(1, 1),
-                 new Vector2<int>(1, -1),
-                 new Vector2<int>(-1, -1),
-                 new Vector2<int>(0, 1),
-                 new Vector2<int>(0, -1),
-                 new Vector2<int>(1, 0),
-                 new Vector2<int>(-1, 0)
-            };
         }
 
         /// <summary>
@@ -32,6 +21,10 @@ namespace ChessLib.Models.Figures
         /// <param name="startPosition">Start position</param>
         /// <param name="color">Figure color</param>
         public Queen(ChessPosition startPosition, ChessColor color) : base(startPosition, color)
+        {
+        }
+
+        protected override void InitializeMoveDirections()
         {
             _moveDirections = new Vector2<int>[]
             {

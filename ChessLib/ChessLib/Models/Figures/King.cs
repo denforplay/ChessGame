@@ -15,17 +15,6 @@ namespace ChessLib.Models.Figures
         /// <param name="otherChess">King from which copy info</param>
         public King(King otherChess) : base(otherChess)
         {
-            _moveDirections = new Vector2<int>[]
-            {
-                 new Vector2<int>(0, 1),
-                 new Vector2<int>(1, 1),
-                 new Vector2<int>(1, 0),
-                 new Vector2<int>(1, -1),
-                 new Vector2<int>(0, -1),
-                 new Vector2<int>(-1, -1),
-                 new Vector2<int>(-1, 0),
-                 new Vector2<int>(-1, 1)
-            };
         }
 
         /// <summary>
@@ -35,30 +24,10 @@ namespace ChessLib.Models.Figures
         /// <param name="color">Figure color</param>
         public King(ChessPosition startPosition, ChessColor color) : base(startPosition, color)
         {
-            _moveDirections = new Vector2<int>[]
-            {
-                 new Vector2<int>(0, 1),
-                 new Vector2<int>(1, 1),
-                 new Vector2<int>(1, 0),
-                 new Vector2<int>(1, -1),
-                 new Vector2<int>(0, -1),
-                 new Vector2<int>(-1, -1),
-                 new Vector2<int>(-1, 0),
-                 new Vector2<int>(-1, 1)
-            };
         }
 
         public override List<ChessPosition> GetPossibleSteps(GameBoard gameBoard)
         {
-            List<ChessBase> enemyChesses = gameBoard.GetAllOponentChesses(ChessColor == ChessColor.White ? ChessColor.Black : ChessColor.White);
-            IEnumerable<ChessPosition> enemyChessesPossibleSteps = new List<ChessPosition>();
-            foreach (var chess in enemyChesses)
-            {
-                if (chess is not King)
-                {
-                    enemyChessesPossibleSteps = enemyChessesPossibleSteps.Concat(chess.GetPossibleSteps(gameBoard));
-                }
-            }
             List<ChessPosition> nextSteps = new();
 
             for (int i = 0; i < _moveDirections.Length; i++)
@@ -70,9 +39,6 @@ namespace ChessLib.Models.Figures
 
                 nextPosition.Horizontal += _moveDirections[i].X;
                 nextPosition.Vertical += _moveDirections[i].Y;
-
-                if (enemyChessesPossibleSteps.Contains(nextPosition))
-                    continue;
 
                 var chess = gameBoard.BoardCells[nextPosition.Horizontal - 1, nextPosition.Vertical - 1].Chess;
 
@@ -88,6 +54,21 @@ namespace ChessLib.Models.Figures
             }
 
             return nextSteps;
+        }
+
+        protected override void InitializeMoveDirections()
+        {
+            _moveDirections = new Vector2<int>[]
+           {
+                 new Vector2<int>(0, 1),
+                 new Vector2<int>(1, 1),
+                 new Vector2<int>(1, 0),
+                 new Vector2<int>(1, -1),
+                 new Vector2<int>(0, -1),
+                 new Vector2<int>(-1, -1),
+                 new Vector2<int>(-1, 0),
+                 new Vector2<int>(-1, 1)
+           };
         }
     }
 }

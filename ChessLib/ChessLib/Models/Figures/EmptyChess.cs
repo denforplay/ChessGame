@@ -14,7 +14,6 @@ namespace ChessLib.Models.Figures
         /// <param name="otherChess">Empty chess from which copy info</param>
         public EmptyChess(EmptyChess otherChess) : base(otherChess)
         {
-            _moveDirections = Array.Empty<Vector2<int>>();
         }
 
         /// <summary>
@@ -23,6 +22,10 @@ namespace ChessLib.Models.Figures
         /// <param name="startPosition">Start position</param>
         /// <param name="color">Figure color</param>
         public EmptyChess(ChessPosition startPosition, ChessColor color) : base(startPosition, color)
+        {
+        }
+
+        protected override void InitializeMoveDirections()
         {
             _moveDirections = Array.Empty<Vector2<int>>();
         }

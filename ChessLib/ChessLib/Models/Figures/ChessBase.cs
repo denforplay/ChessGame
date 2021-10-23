@@ -69,8 +69,8 @@ namespace ChessLib.Models.Figures
             var ll = _movement.GetPossibleSteps(this, _moveDirections, gameBoard);
             if (ll.Contains(nextPosition))
             {
-                if (_movement is PawnMovement pawnMovement)
-                    pawnMovement.IsFirstStep = false;
+                if (_movement is PawnMovement)
+                    (_movement as PawnMovement).IsFirstStep = false;
 
                 gameBoard.BoardCells[CurrentPosition.Horizontal - 1, CurrentPosition.Vertical - 1].SetChess(new EmptyChess(CurrentPosition, ChessColor.None));
 

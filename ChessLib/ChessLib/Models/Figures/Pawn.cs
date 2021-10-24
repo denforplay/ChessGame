@@ -10,6 +10,8 @@ namespace ChessLib.Models.Figures
     /// </summary>
     public sealed class Pawn : ChessBase
     {
+        public ChessPosition StartPosition { get; private set; }
+
         /// <summary>
         /// Copy constructor to create pawn from other pawn
         /// </summary>
@@ -19,6 +21,11 @@ namespace ChessLib.Models.Figures
             _movement = new PawnMovement();
         }
 
+        public void SetFirstStep(bool isFirstStep)
+        {
+            (_movement as PawnMovement).IsFirstStep = isFirstStep;
+        }
+
         /// <summary>
         /// Pawn constructor
         /// </summary>
@@ -26,6 +33,7 @@ namespace ChessLib.Models.Figures
         /// <param name="color">Figure color</param>
         public Pawn(ChessPosition startPosition, ChessColor color) : base(startPosition, color)
         {
+            StartPosition = new ChessPosition(startPosition.Horizontal, startPosition.Vertical);
             _movement = new PawnMovement();
         }
 

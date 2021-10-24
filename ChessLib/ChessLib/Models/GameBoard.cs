@@ -35,7 +35,7 @@ namespace ChessLib.Models
             {
                 for (int j = 0; j < BOARD_SIZE; j++)
                 {
-                    if (_boardCells[i, j].Chess?.ChessColor == opponentColor)
+                    if (_boardCells[i, j].Chess.ChessColor == opponentColor)
                         oponentChess.Add(_boardCells[i, j].Chess);
                 }
             }

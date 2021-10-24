@@ -8,7 +8,7 @@
         ACTIVE_GAME,
         WHITE_UNDER_CHECK,
         BLACK_UNDER_CHECK,
-        BLACK_WIN,
-        WHITE_WIN
+        BLACK_UNDER_MATE,
+        WHITE_UNDER_MATE
     }
 }

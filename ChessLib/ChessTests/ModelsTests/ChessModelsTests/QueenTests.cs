@@ -2,6 +2,9 @@
 using Xunit;
 using System;
 using ChessLib.Models.Game;
+using ChessLib.Models.Enums;
+using ChessLib.Models.Players;
+using ChessLib.Models.Configurations;
 
 namespace ChessTests.ModelsTests.ChessModelsTests
 {
@@ -11,7 +14,10 @@ namespace ChessTests.ModelsTests.ChessModelsTests
         public void QueenMovement_TestUpMovementAttach_ReturnsTrue()
         {
             string expected = "White Queen X: 4, Y: 7";
-            ChessGame game = new ChessGame();
+            GameBoard gameBoard = new GameBoard();
+            PlayerConfiguration playerConfiguration = new PlayerConfiguration(gameBoard);
+            ChessGame game = new ChessGame(new HumanPlayer("Vasya", ChessColor.White, playerConfiguration),
+                new HumanPlayer("Petya", ChessColor.Black, playerConfiguration), gameBoard);
             game.MakeStep(new ChessPosition('d', 2), new ChessPosition('d', 4));
             game.MakeStep(new ChessPosition('c', 7), new ChessPosition('c', 5));
             game.MakeStep(new ChessPosition('d', 4), new ChessPosition('c', 5));
@@ -25,7 +31,10 @@ namespace ChessTests.ModelsTests.ChessModelsTests
         public void QueenMovement_TestRightUpDiagonalMovement_ReturnsTrue()
         {
             string expected = "White Queen X: 8, Y: 5";
-            ChessGame game = new ChessGame();
+            GameBoard gameBoard = new GameBoard();
+            PlayerConfiguration playerConfiguration = new PlayerConfiguration(gameBoard);
+            ChessGame game = new ChessGame(new HumanPlayer("Vasya", ChessColor.White, playerConfiguration),
+                new HumanPlayer("Petya", ChessColor.Black, playerConfiguration), gameBoard);
             game.MakeStep(new ChessPosition('e', 2), new ChessPosition('e', 3));
             game.MakeStep(new ChessPosition('h', 7), new ChessPosition('h', 5));
             game.MakeStep(new ChessPosition('d', 1), new ChessPosition('h', 5));
@@ -37,7 +46,10 @@ namespace ChessTests.ModelsTests.ChessModelsTests
         public void QueenMovement_TestLeftUpDiagonalMovement_ReturnsTrue()
         {
             string expected = "White Queen X: 1, Y: 4";
-            ChessGame game = new ChessGame();
+            GameBoard gameBoard = new GameBoard();
+            PlayerConfiguration playerConfiguration = new PlayerConfiguration(gameBoard);
+            ChessGame game = new ChessGame(new HumanPlayer("Vasya", ChessColor.White, playerConfiguration),
+                new HumanPlayer("Petya", ChessColor.Black, playerConfiguration), gameBoard);
             game.MakeStep(new ChessPosition('c', 2), new ChessPosition('c', 3));
             game.MakeStep(new ChessPosition('h', 7), new ChessPosition('h', 5));
             game.MakeStep(new ChessPosition('d', 1), new ChessPosition('a', 4));

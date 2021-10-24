@@ -1,5 +1,8 @@
 ﻿using ChessLib.Models;
+using ChessLib.Models.Configurations;
+using ChessLib.Models.Enums;
 using ChessLib.Models.Game;
+using ChessLib.Models.Players;
 using System;
 using Xunit;
 
@@ -11,7 +14,10 @@ namespace ChessTests.ModelsTests.ChessModelsTests
         public void BishopMovement_TestLeftUpperDiagonalMovement()
         {
             string expected = "White Bishop X: 1, Y: 3";
-            ChessGame game = new ChessGame();
+            GameBoard gameBoard = new GameBoard();
+            PlayerConfiguration playerConfiguration = new PlayerConfiguration(gameBoard);
+            ChessGame game = new ChessGame(new HumanPlayer("Vasya", ChessColor.White, playerConfiguration),
+                new HumanPlayer("Petya", ChessColor.Black, playerConfiguration), gameBoard);
             game.MakeStep(new ChessPosition('b', 2), new ChessPosition('b', 4));
             game.MakeStep(new ChessPosition('b', 7), new ChessPosition('b', 5));
             game.MakeStep(new ChessPosition('c', 1), new ChessPosition('a', 3));
@@ -23,7 +29,10 @@ namespace ChessTests.ModelsTests.ChessModelsTests
         public void BishopMovement_TestRightUpperDiagonalMovement()
         {
             string expected = "White Bishop X: 7, Y: 5";
-            ChessGame game = new ChessGame();
+            GameBoard gameBoard = new GameBoard();
+            PlayerConfiguration playerConfiguration = new PlayerConfiguration(gameBoard);
+            ChessGame game = new ChessGame(new HumanPlayer("Vasya", ChessColor.White, playerConfiguration),
+                new HumanPlayer("Petya", ChessColor.Black, playerConfiguration), gameBoard);
             game.MakeStep(new ChessPosition('d', 2), new ChessPosition('d', 4));
             game.MakeStep(new ChessPosition('d', 7), new ChessPosition('d', 6));
             game.MakeStep(new ChessPosition('c', 1), new ChessPosition('g', 5));
@@ -35,7 +44,10 @@ namespace ChessTests.ModelsTests.ChessModelsTests
         public void BishopMovement_TestRightDownDiagonalMovement()
         {
             string expected = "Black Bishop X: 8, Y: 6";
-            ChessGame game = new ChessGame();
+            GameBoard gameBoard = new GameBoard();
+            PlayerConfiguration playerConfiguration = new PlayerConfiguration(gameBoard);
+            ChessGame game = new ChessGame(new HumanPlayer("Vasya", ChessColor.White, playerConfiguration),
+                new HumanPlayer("Petya", ChessColor.Black, playerConfiguration), gameBoard);
             game.MakeStep(new ChessPosition('d', 2), new ChessPosition('d', 4));
             game.MakeStep(new ChessPosition('g', 7), new ChessPosition('g', 6));
             game.MakeStep(new ChessPosition('c', 1), new ChessPosition('g', 5));
@@ -48,7 +60,10 @@ namespace ChessTests.ModelsTests.ChessModelsTests
         public void BishopMovement_TestLeftDownDiagonalMovement()
         {
             string expected = "Black Bishop X: 3, Y: 5";
-            ChessGame game = new ChessGame();
+            GameBoard gameBoard = new GameBoard();
+            PlayerConfiguration playerConfiguration = new PlayerConfiguration(gameBoard);
+            ChessGame game = new ChessGame(new HumanPlayer("Vasya", ChessColor.White, playerConfiguration),
+                new HumanPlayer("Petya", ChessColor.Black, playerConfiguration), gameBoard);
             game.MakeStep(new ChessPosition('d', 2), new ChessPosition('d', 4));
             game.MakeStep(new ChessPosition('e', 7), new ChessPosition('e', 6));
             game.MakeStep(new ChessPosition('c', 1), new ChessPosition('g', 5));
@@ -60,7 +75,10 @@ namespace ChessTests.ModelsTests.ChessModelsTests
         [Fact]
         public void BishopMovement_InvalidDirectionMovement_ThrowsArgumentException()
         {
-            ChessGame game = new ChessGame();
+            GameBoard gameBoard = new GameBoard();
+            PlayerConfiguration playerConfiguration = new PlayerConfiguration(gameBoard);
+            ChessGame game = new ChessGame(new HumanPlayer("Vasya", ChessColor.White, playerConfiguration),
+                new HumanPlayer("Petya", ChessColor.Black, playerConfiguration), gameBoard);
             game.MakeStep(new ChessPosition('d', 2), new ChessPosition('d', 4));
             game.MakeStep(new ChessPosition('e', 7), new ChessPosition('e', 6));
             game.MakeStep(new ChessPosition('c', 1), new ChessPosition('g', 5));

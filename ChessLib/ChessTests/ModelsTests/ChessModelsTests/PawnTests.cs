@@ -1,5 +1,8 @@
 ﻿using ChessLib.Models;
+using ChessLib.Models.Configurations;
+using ChessLib.Models.Enums;
 using ChessLib.Models.Game;
+using ChessLib.Models.Players;
 using System;
 using Xunit;
 
@@ -12,7 +15,10 @@ namespace ChessTests.ModelsTests.ChessModelsTests
         [InlineData('a', 2, 'a', 4, "White Pawn X: 1, Y: 4")]
         public void PawnMovement_TestPossibilityMovements(char startX, int startY, char endX, int endY, string expected)
         {
-            ChessGame game = new ChessGame();
+            GameBoard gameBoard = new GameBoard();
+            PlayerConfiguration playerConfiguration = new PlayerConfiguration(gameBoard);
+            ChessGame game = new ChessGame(new HumanPlayer("Vasya", ChessColor.White, playerConfiguration),
+                new HumanPlayer("Petya", ChessColor.Black, playerConfiguration), gameBoard);
             game.MakeStep(new ChessPosition(startX, startY), new ChessPosition(endX, endY));
             int x = Math.Abs('a' - endX);
             string actual = game.GameBoard.BoardCells[x, endY - 1].Chess.ToString();
@@ -23,7 +29,10 @@ namespace ChessTests.ModelsTests.ChessModelsTests
         public void PawnMovement_TestRightDiagonalAttackMovement_ReturnsTrue()
         {
             string expected = "White Pawn X: 3, Y: 5";
-            ChessGame game = new ChessGame();
+            GameBoard gameBoard = new GameBoard();
+            PlayerConfiguration playerConfiguration = new PlayerConfiguration(gameBoard);
+            ChessGame game = new ChessGame(new HumanPlayer("Vasya", ChessColor.White, playerConfiguration),
+                new HumanPlayer("Petya", ChessColor.Black, playerConfiguration), gameBoard);
             game.MakeStep(new ChessPosition('b', 2), new ChessPosition('b', 4));
             game.MakeStep(new ChessPosition('c', 7), new ChessPosition('c', 5));
             game.MakeStep(new ChessPosition('b', 4), new ChessPosition('c', 5));
@@ -36,7 +45,10 @@ namespace ChessTests.ModelsTests.ChessModelsTests
         public void PawnMovement_TestLeftDiagonalAttackMovement_ReturnsTrue()
         {
             string expected = "White Pawn X: 1, Y: 5";
-            ChessGame game = new ChessGame();
+            GameBoard gameBoard = new GameBoard();
+            PlayerConfiguration playerConfiguration = new PlayerConfiguration(gameBoard);
+            ChessGame game = new ChessGame(new HumanPlayer("Vasya", ChessColor.White, playerConfiguration),
+                new HumanPlayer("Petya", ChessColor.Black, playerConfiguration), gameBoard);
             game.MakeStep(new ChessPosition('b', 2), new ChessPosition('b', 4));
             game.MakeStep(new ChessPosition('a', 7), new ChessPosition('a', 5));
             game.MakeStep(new ChessPosition('b', 4), new ChessPosition('a', 5));
@@ -49,7 +61,10 @@ namespace ChessTests.ModelsTests.ChessModelsTests
         public void PawnReplaceByQueen_ReturnsTrue()
         {
             string expected = "White Queen X: 1, Y: 8";
-            ChessGame game = new ChessGame();
+            GameBoard gameBoard = new GameBoard();
+            PlayerConfiguration playerConfiguration = new PlayerConfiguration(gameBoard);
+            ChessGame game = new ChessGame(new HumanPlayer("Vasya", ChessColor.White, playerConfiguration),
+                new HumanPlayer("Petya", ChessColor.Black, playerConfiguration), gameBoard);
             game.MakeStep(new ChessPosition('b', 2), new ChessPosition('b', 4));
             game.MakeStep(new ChessPosition('a', 7), new ChessPosition('a', 5));
             game.MakeStep(new ChessPosition('b', 4), new ChessPosition('a', 5));

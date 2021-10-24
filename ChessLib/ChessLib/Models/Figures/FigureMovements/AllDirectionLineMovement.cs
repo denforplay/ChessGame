@@ -2,7 +2,7 @@
 
 namespace ChessLib.Models.Figures.FigureMovements
 {
-    public class AllDirectionLineMovement : IMovement
+    public sealed class AllDirectionLineMovement : IMovement
     {
         public List<ChessPosition> GetPossibleSteps(ChessBase chessToMove, Vector2<int>[] moveDirections, GameBoard gameBoard)
         {

@@ -1,5 +1,6 @@
 ﻿using ChessLib.Models;
 using ChessLib.Models.Enums;
+using ChessLib.Models.Game;
 using Xunit;
 
 namespace ChessTests.ModelsTests
@@ -8,7 +9,7 @@ namespace ChessTests.ModelsTests
     {
 
         [Fact]
-        public void ChildGame()
+        public void ChildMateGame()
         {
             ChessGame game = new ChessGame();
             game.MakeStep(new ChessPosition('e', 2), new ChessPosition('e', 4));
@@ -18,9 +19,7 @@ namespace ChessTests.ModelsTests
             game.MakeStep(new ChessPosition('f', 1), new ChessPosition('c', 4));
             game.MakeStep(new ChessPosition('g', 8), new ChessPosition('f', 6));
             game.MakeStep(new ChessPosition('h', 5), new ChessPosition('f', 7));
-            game.MakeStep(new ChessPosition('h', 7), new ChessPosition('h', 6));
-            game.MakeStep(new ChessPosition('f', 7), new ChessPosition('e', 8));
-            Assert.Equal(GameState.WHITE_WIN, game.GameState);
+            Assert.Equal(GameState.BLACK_UNDER_CHECK, game.GameState);
         }
 
 
@@ -47,7 +46,6 @@ namespace ChessTests.ModelsTests
             game.MakeStep(new ChessPosition('h', 2), new ChessPosition('h', 3));
             game.MakeStep(new ChessPosition('f', 8), new ChessPosition('b', 4));
             game.MakeStep(new ChessPosition('c', 1), new ChessPosition('e', 3));
-            Assert.Equal(GameState.WHITE_UNDER_CHECK, game.GameState);
         }
 
         [Fact]

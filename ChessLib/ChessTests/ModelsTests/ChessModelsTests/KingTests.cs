@@ -1,5 +1,6 @@
 ﻿using Xunit;
 using ChessLib.Models;
+using ChessLib.Models.Game;
 
 namespace ChessTests.ModelsTests.ChessModelsTests
 {

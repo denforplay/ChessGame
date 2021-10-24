@@ -1,4 +1,5 @@
 ﻿using ChessLib.Models;
+using ChessLib.Models.Game;
 using System;
 using Xunit;
 

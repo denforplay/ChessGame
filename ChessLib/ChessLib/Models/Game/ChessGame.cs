@@ -3,8 +3,9 @@ using ChessLib.Models.Enums;
 using ChessLib.Models.Figures;
 using ChessLib.Models.Loggers;
 using ChessLib.Models.Players;
+using System;
 
-namespace ChessLib.Models
+namespace ChessLib.Models.Game
 {
     public sealed class ChessGame
     {
@@ -57,7 +58,54 @@ namespace ChessLib.Models
             _currentTurnPlayer.TakeChessFigure(fromPositionChess);
             _gameLogger.Log($"{_currentTurnPlayer} move {_currentTurnPlayer.TakenChess} from {fromPositionChess} to {toPosition}");
             _currentTurnPlayer.MoveChess(toPosition, _gameBoard);
+            if (IsKingUnderAttack(_currentTurnPlayer))
+            {
+                UnmakeStep(toPosition, fromPositionChess);
+                return;
+            }
+
             _currentTurnPlayer = _currentTurnPlayer == _whitePlayer ? _blackPlayer : _whitePlayer;
+
+            if (IsKingUnderAttack(_currentTurnPlayer))
+            {
+                if (_currentTurnPlayer.PlayerChessColor == ChessColor.Black)
+                {
+                    _gameState = GameState.BLACK_UNDER_CHECK;
+                }
+                else
+                {
+                    _gameState = GameState.WHITE_UNDER_CHECK;
+                }
+            }
+            else
+            {
+                _gameState = GameState.ACTIVE_GAME;
+            }
+        }
+
+        public void UnmakeStep(ChessPosition fromPosition, ChessPosition toPosition)
+        {
+            var chess = _gameBoard.BoardCells[fromPosition.Horizontal - 1, fromPosition.Vertical - 1].Chess;
+            _gameBoard.BoardCells[fromPosition.Horizontal - 1, fromPosition.Vertical - 1].SetChess(new EmptyChess(chess.CurrentPosition, ChessColor.None));
+            chess.CurrentPosition = toPosition;
+            _gameBoard.BoardCells[toPosition.Horizontal - 1, toPosition.Vertical - 1].SetChess(chess);
+        }
+
+        private bool IsKingUnderAttack(HumanPlayer player)
+        {
+            player = player == _whitePlayer ? _blackPlayer : _whitePlayer;
+            foreach(var chess in player.Chesses)
+            {
+                foreach(var step in chess.GetPossibleSteps(_gameBoard))
+                {
+                    if (_gameBoard.BoardCells[step.Horizontal - 1, step.Vertical - 1].Chess is King king)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
         }
 
         /// <summary>

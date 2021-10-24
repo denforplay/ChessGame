@@ -2,7 +2,7 @@
 
 namespace ChessLib.Models.Figures.FigureMovements
 {
-    public class PawnMovement : IMovement
+    public sealed class PawnMovement : IMovement
     {
         public bool IsFirstStep = true;
 
@@ -12,7 +12,8 @@ namespace ChessLib.Models.Figures.FigureMovements
 
             var currentPosition = chessToMove.CurrentPosition;
 
-            if (gameBoard.BoardCells[currentPosition.Horizontal - 1 + moveDirections[0].X, currentPosition.Vertical - 1 + moveDirections[0].Y].Chess is EmptyChess)
+            if (gameBoard.IsPositionOnBoard(currentPosition.Horizontal - 1 + moveDirections[0].X, currentPosition.Vertical - 1 + moveDirections[0].Y) &&
+                gameBoard.BoardCells[currentPosition.Horizontal - 1 + moveDirections[0].X, currentPosition.Vertical - 1 + moveDirections[0].Y].Chess is EmptyChess)
                 nextSteps.Add(new ChessPosition(currentPosition.Horizontal + moveDirections[0].X, currentPosition.Vertical + moveDirections[0].Y));
 
             for (int i = 1; i <= 2; i++)

@@ -1,6 +1,7 @@
 ﻿using ChessLib.Models;
 using Xunit;
 using System;
+using ChessLib.Models.Game;
 
 namespace ChessTests.ModelsTests.ChessModelsTests
 {
@@ -21,54 +22,26 @@ namespace ChessTests.ModelsTests.ChessModelsTests
         }
 
         [Fact]
-        public void QueenMovement_TestDownMovement_ReturnsTrue()
-        {
-            string expected = "White Queen X: 4, Y: 3";
-            ChessGame game = new ChessGame();
-            game.MakeStep(new ChessPosition('d', 2), new ChessPosition('d', 4));
-            game.MakeStep(new ChessPosition('c', 7), new ChessPosition('c', 5));
-            game.MakeStep(new ChessPosition('d', 4), new ChessPosition('c', 5));
-            game.MakeStep(new ChessPosition('h', 7), new ChessPosition('h', 5));
-            game.MakeStep(new ChessPosition('d', 1), new ChessPosition('d', 7));
-            game.MakeStep(new ChessPosition('h', 5), new ChessPosition('h', 4));
-            game.MakeStep(new ChessPosition('d', 7), new ChessPosition('d', 3));
-            string actual = game.GameBoard.BoardCells[3, 2].Chess.ToString();
-            Assert.Equal(expected, actual);
-        }
-
-        [Fact]
         public void QueenMovement_TestRightUpDiagonalMovement_ReturnsTrue()
         {
-            string expected = "White Queen X: 7, Y: 6";
+            string expected = "White Queen X: 8, Y: 5";
             ChessGame game = new ChessGame();
-            game.MakeStep(new ChessPosition('d', 2), new ChessPosition('d', 4));
-            game.MakeStep(new ChessPosition('c', 7), new ChessPosition('c', 5));
-            game.MakeStep(new ChessPosition('d', 4), new ChessPosition('c', 5));
+            game.MakeStep(new ChessPosition('e', 2), new ChessPosition('e', 3));
             game.MakeStep(new ChessPosition('h', 7), new ChessPosition('h', 5));
-            game.MakeStep(new ChessPosition('d', 1), new ChessPosition('d', 7));
-            game.MakeStep(new ChessPosition('h', 5), new ChessPosition('h', 4));
-            game.MakeStep(new ChessPosition('d', 7), new ChessPosition('d', 3));
-            game.MakeStep(new ChessPosition('h', 4), new ChessPosition('h', 3));
-            game.MakeStep(new ChessPosition('d', 3), new ChessPosition('g', 6));
-            string actual = game.GameBoard.BoardCells[6, 5].Chess.ToString();
+            game.MakeStep(new ChessPosition('d', 1), new ChessPosition('h', 5));
+            string actual = game.GameBoard.BoardCells[7, 4].Chess.ToString();
             Assert.Equal(expected, actual);
         }
 
         [Fact]
         public void QueenMovement_TestLeftUpDiagonalMovement_ReturnsTrue()
         {
-            string expected = "White Queen X: 1, Y: 6";
+            string expected = "White Queen X: 1, Y: 4";
             ChessGame game = new ChessGame();
-            game.MakeStep(new ChessPosition('d', 2), new ChessPosition('d', 4));
-            game.MakeStep(new ChessPosition('c', 7), new ChessPosition('c', 5));
-            game.MakeStep(new ChessPosition('d', 4), new ChessPosition('c', 5));
+            game.MakeStep(new ChessPosition('c', 2), new ChessPosition('c', 3));
             game.MakeStep(new ChessPosition('h', 7), new ChessPosition('h', 5));
-            game.MakeStep(new ChessPosition('d', 1), new ChessPosition('d', 7));
-            game.MakeStep(new ChessPosition('h', 5), new ChessPosition('h', 4));
-            game.MakeStep(new ChessPosition('d', 7), new ChessPosition('d', 3));
-            game.MakeStep(new ChessPosition('h', 4), new ChessPosition('h', 3));
-            game.MakeStep(new ChessPosition('d', 3), new ChessPosition('a', 6));
-            string actual = game.GameBoard.BoardCells[0, 5].Chess.ToString();
+            game.MakeStep(new ChessPosition('d', 1), new ChessPosition('a', 4));
+            string actual = game.GameBoard.BoardCells[0, 3].Chess.ToString();
             Assert.Equal(expected, actual);
         }
     }

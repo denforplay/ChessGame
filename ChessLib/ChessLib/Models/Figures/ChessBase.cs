@@ -25,10 +25,7 @@ namespace ChessLib.Models.Figures
         /// </summary>
         public ChessPosition CurrentPosition
         {
-            get
-            {
-                return _currentChessPosition;
-            }
+            get => _currentChessPosition;
             set
             {
                 if (value != null)
@@ -60,14 +57,15 @@ namespace ChessLib.Models.Figures
             InitializeMoveDirections();
         }
 
+        public List<ChessPosition> GetPossibleSteps(GameBoard gameBoard) => _movement.GetPossibleSteps(this, _moveDirections, gameBoard);
+
         /// <summary>
         /// Chess move method
         /// </summary>
         /// <param name="chessPosition">Where move chess position</param>
         public virtual void Move(ChessPosition nextPosition, GameBoard gameBoard)
         {
-            var ll = _movement.GetPossibleSteps(this, _moveDirections, gameBoard);
-            if (ll.Contains(nextPosition))
+            if (GetPossibleSteps(gameBoard).Contains(nextPosition))
             {
                 if (_movement is PawnMovement)
                     (_movement as PawnMovement).IsFirstStep = false;

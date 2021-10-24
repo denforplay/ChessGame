@@ -5,6 +5,10 @@
     /// </summary>
     public interface ILogger
     {
+        /// <summary>
+        /// Log method
+        /// </summary>
+        /// <param name="message">Input message to log</param>
         public void Log(string message);
     }
 }

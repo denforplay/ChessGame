@@ -14,7 +14,7 @@ namespace ChessLib.Models.Figures
         /// <param name="otherChess">Pawn from which copy info</param>
         public Castle(Pawn otherChess) : base(otherChess)
         {
-            _movement = new AllDirectionLineMovement();
+            _movement = new AllDirectionLineStepFinder();
         }
 
         /// <summary>
@@ -24,7 +24,7 @@ namespace ChessLib.Models.Figures
         /// <param name="color">Figure color</param>
         public Castle(ChessPosition startPosition, ChessColor color) : base(startPosition, color)
         {
-            _movement = new AllDirectionLineMovement();
+            _movement = new AllDirectionLineStepFinder();
         }
 
         protected override void InitializeMoveDirections()

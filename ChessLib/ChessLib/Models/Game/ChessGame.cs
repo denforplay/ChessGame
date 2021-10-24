@@ -8,6 +8,9 @@ using System.Collections.Generic;
 
 namespace ChessLib.Models.Game
 {
+    /// <summary>
+    /// Represents chess game
+    /// </summary>
     public sealed class ChessGame
     {
         private GameBoard _gameBoard;
@@ -18,9 +21,22 @@ namespace ChessLib.Models.Game
         private ILogger _gameLogger = new TxtLogger();
         private ChessBase _lastRemovedChess;
 
+        /// <summary>
+        /// Returns current game state
+        /// </summary>
         public GameState GameState => _gameState;
+
+        /// <summary>
+        /// Returns current game board
+        /// </summary>
         public GameBoard GameBoard => _gameBoard;
 
+        /// <summary>
+        /// Chess game constructor
+        /// </summary>
+        /// <param name="player1">First chess player</param>
+        /// <param name="player2">Second chess player</param>
+        /// <param name="gameBoard">Game board</param>
         public ChessGame(HumanPlayer player1, HumanPlayer player2, GameBoard gameBoard)
         {
             _gameState = GameState.ACTIVE_GAME;
@@ -31,12 +47,18 @@ namespace ChessLib.Models.Game
                 _lastRemovedChess = chess;
                 RemovePlayerChess(chess);
             };
+            _gameLogger.Log($"Game started beyong {player1} and {player2}");
         }
 
-
+        /// <summary>
+        /// Makes step and checks if player is under mate.
+        /// </summary>
+        /// <param name="fromPositionChess">Takes chess from this position</param>
+        /// <param name="toPosition">Move chess to this position</param>
         public void MakeStep(ChessPosition fromPositionChess, ChessPosition toPosition)
         {
             _currentTurnPlayer.TakeChessFigure(fromPositionChess);
+            _gameLogger.Log($"{_currentTurnPlayer} move {_currentTurnPlayer.TakenChess} to {toPosition}");
             _currentTurnPlayer.MoveChess(toPosition, _gameBoard);
             if (IsKingUnderAttack(_currentTurnPlayer))
             {
@@ -44,11 +66,15 @@ namespace ChessLib.Models.Game
                 return;
             }
 
+
             _currentTurnPlayer = _currentTurnPlayer == _whitePlayer ? _blackPlayer : _whitePlayer;
 
             if(IsPlayerUnderMate(_currentTurnPlayer))
             {
-                _gameState = GameState.BLACK_UNDER_MATE;
+                if (_currentTurnPlayer.PlayerChessColor == ChessColor.Black)
+                    _gameState = GameState.BLACK_UNDER_MATE;
+                else
+                    _gameState = GameState.WHITE_UNDER_MATE;
                 return;
             }
 
@@ -69,6 +95,11 @@ namespace ChessLib.Models.Game
             }
         }
 
+        /// <summary>
+        /// Undo last maked step from chess position to previous chess position
+        /// </summary>
+        /// <param name="fromPosition">From position</param>
+        /// <param name="toPosition">To position</param>
         private void UnmakeStep(ChessPosition fromPosition, ChessPosition toPosition)
         {
             var chess = _gameBoard.BoardCells[fromPosition.Horizontal - 1, fromPosition.Vertical - 1].Chess;
@@ -77,6 +108,7 @@ namespace ChessLib.Models.Game
             {
                 pawn.SetFirstStep(true);
             }
+
             if (_lastRemovedChess is not null && _lastRemovedChess.CurrentPosition.Equals(fromPosition))
             {
                 if (_lastRemovedChess.ChessColor == ChessColor.Black)
@@ -94,6 +126,10 @@ namespace ChessLib.Models.Game
 
         }
 
+        /// <summary>
+        /// Remove chess from player
+        /// </summary>
+        /// <param name="chess">Chess to remove</param>
         private void RemovePlayerChess(ChessBase chess)
         {
             if (chess.ChessColor == ChessColor.White)
@@ -106,6 +142,13 @@ namespace ChessLib.Models.Game
             }
         }
 
+        /// <summary>
+        /// Method checks if can chess move to other position without opening player chess
+        /// </summary>
+        /// <param name="player">Player</param>
+        /// <param name="fromPositionChess">Chess position</param>
+        /// <param name="toPosition">Position to move chess</param>
+        /// <returns>True if chess can move without opening other returns false</returns>
         private bool CanChessMoveWithoutOpeningKing(HumanPlayer player, ChessPosition fromPositionChess, ChessPosition toPosition)
         {
             player.TakeChessFigure(fromPositionChess);
@@ -122,6 +165,11 @@ namespace ChessLib.Models.Game
             }
         }
 
+        /// <summary>
+        /// Method cheks if player king is under attack
+        /// </summary>
+        /// <param name="player">Player to check</param>
+        /// <returns>Returns true if player king is under attack other returns false</returns>
         private bool IsKingUnderAttack(HumanPlayer player)
         {
             player = player == _whitePlayer ? _blackPlayer : _whitePlayer;
@@ -139,6 +187,11 @@ namespace ChessLib.Models.Game
             return false;
         }
 
+        /// <summary>
+        /// Method checks if player is under mate
+        /// </summary>
+        /// <param name="player">Player to check</param>
+        /// <returns>True if plates is under mate other returns false</returns>
         private bool IsPlayerUnderMate(HumanPlayer player)
         {
             var chesses = new List<ChessBase>(player.Chesses);
@@ -157,7 +210,7 @@ namespace ChessLib.Models.Game
         }
 
         /// <summary>
-        /// Initialize players by chess figures depends on figures colors
+        /// Initialize players
         /// </summary>
         private void InitializePlayers(HumanPlayer player1, HumanPlayer player2)
         {
@@ -166,7 +219,7 @@ namespace ChessLib.Models.Game
                 throw new ArgumentException();
             }
 
-            PlayerConfiguration playerConfig = new PlayerConfiguration(_gameBoard);
+            ChessesConfiguration playerConfig = new ChessesConfiguration(_gameBoard);
             if (player1.PlayerChessColor == ChessColor.White)
             {
                 _whitePlayer = player1;

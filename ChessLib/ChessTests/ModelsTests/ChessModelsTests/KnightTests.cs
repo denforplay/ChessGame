@@ -15,7 +15,7 @@ namespace ChessTests.ModelsTests.ChessModelsTests
         {
             string expected = "White Knight X: 3, Y: 3";
             GameBoard gameBoard = new GameBoard();
-            PlayerConfiguration playerConfiguration = new PlayerConfiguration(gameBoard);
+            ChessesConfiguration playerConfiguration = new ChessesConfiguration(gameBoard);
             ChessGame game = new ChessGame(new HumanPlayer("Vasya", ChessColor.White, playerConfiguration),
                 new HumanPlayer("Petya", ChessColor.Black, playerConfiguration), gameBoard);
             game.MakeStep(new ChessPosition('b', 1), new ChessPosition('c', 3));
@@ -28,7 +28,7 @@ namespace ChessTests.ModelsTests.ChessModelsTests
         {
             string expected = "White Knight X: 1, Y: 3";
             GameBoard gameBoard = new GameBoard();
-            PlayerConfiguration playerConfiguration = new PlayerConfiguration(gameBoard);
+            ChessesConfiguration playerConfiguration = new ChessesConfiguration(gameBoard);
             ChessGame game = new ChessGame(new HumanPlayer("Vasya", ChessColor.White, playerConfiguration),
                 new HumanPlayer("Petya", ChessColor.Black, playerConfiguration), gameBoard);
             game.MakeStep(new ChessPosition('b', 1), new ChessPosition('a', 3));
@@ -41,7 +41,7 @@ namespace ChessTests.ModelsTests.ChessModelsTests
         public void KnightMovement_TestInvalidMove_ThrowsArgumentException()
         {
             GameBoard gameBoard = new GameBoard();
-            PlayerConfiguration playerConfiguration = new PlayerConfiguration(gameBoard);
+            ChessesConfiguration playerConfiguration = new ChessesConfiguration(gameBoard);
             ChessGame game = new ChessGame(new HumanPlayer("Vasya", ChessColor.White, playerConfiguration),
                 new HumanPlayer("Petya", ChessColor.Black, playerConfiguration), gameBoard);
             Assert.Throws<ArgumentException>(() => game.MakeStep(new ChessPosition('b', 1), new ChessPosition('c', 2)));

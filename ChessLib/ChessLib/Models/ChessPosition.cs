@@ -21,6 +21,11 @@ namespace ChessLib.Models
             Horizontal = horizontalPosition;
         }
 
+        /// <summary>
+        /// Chess position constructor
+        /// </summary>
+        /// <param name="horizontalPosition">Horizontal position in char form</param>
+        /// <param name="verticalPosition">Vertical position</param>
         public ChessPosition(char horizontalPosition, int verticalPosition)
         {
             Vertical = verticalPosition;

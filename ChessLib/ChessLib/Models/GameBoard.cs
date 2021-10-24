@@ -10,8 +10,9 @@ namespace ChessLib.Models
     /// </summary>
     public sealed class GameBoard
     {
-        public event Action<ChessBase> OnChessRemoved;
         public readonly int BOARD_SIZE = 8;
+
+        public event Action<ChessBase> OnChessRemoved;
 
         private BoardCell[,] _boardCells;
 
@@ -28,26 +29,15 @@ namespace ChessLib.Models
             InitializeBoardCells();
         }
 
-        public List<ChessBase> GetAllOponentChesses(ChessColor opponentColor)
-        {
-            List<ChessBase> oponentChess = new List<ChessBase>();
-            for (int i = 0; i < BOARD_SIZE; i++)
-            {
-                for (int j = 0; j < BOARD_SIZE; j++)
-                {
-                    if (_boardCells[i, j].Chess.ChessColor == opponentColor)
-                        oponentChess.Add(_boardCells[i, j].Chess);
-                }
-            }
-
-            return oponentChess;
-        }
-
         public bool IsPositionOnBoard(int horizontal, int vertical)
         {
             return horizontal >= 0 && horizontal < BOARD_SIZE && vertical >= 0 && vertical < BOARD_SIZE;
         }
 
+        /// <summary>
+        /// Method to remove chess from board
+        /// </summary>
+        /// <param name="onBoardCell">Board cell from what remove chess</param>
         public void RemoveChess(BoardCell onBoardCell)
         {
             OnChessRemoved?.Invoke(onBoardCell.Chess);

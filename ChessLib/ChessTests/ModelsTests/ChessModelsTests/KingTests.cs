@@ -14,7 +14,7 @@ namespace ChessTests.ModelsTests.ChessModelsTests
        {
             string expected = "X: 5, Y: 2 White King X: 5, Y: 2";
             GameBoard gameBoard = new GameBoard();
-            PlayerConfiguration playerConfiguration = new PlayerConfiguration(gameBoard);
+            ChessesConfiguration playerConfiguration = new ChessesConfiguration(gameBoard);
             ChessGame game = new ChessGame(new HumanPlayer("Vasya", ChessColor.White, playerConfiguration),
                 new HumanPlayer("Petya", ChessColor.Black, playerConfiguration), gameBoard);
             game.MakeStep(new ChessPosition('e', 2), new ChessPosition('e', 3));
@@ -28,7 +28,7 @@ namespace ChessTests.ModelsTests.ChessModelsTests
         {
             string expected = "X: 5, Y: 2 White King X: 5, Y: 2";
             GameBoard gameBoard = new GameBoard();
-            PlayerConfiguration playerConfiguration = new PlayerConfiguration(gameBoard);
+            ChessesConfiguration playerConfiguration = new ChessesConfiguration(gameBoard);
             ChessGame game = new ChessGame(new HumanPlayer("Vasya", ChessColor.White, playerConfiguration),
                 new HumanPlayer("Petya", ChessColor.Black, playerConfiguration), gameBoard);
             game.MakeStep(new ChessPosition('e', 2), new ChessPosition('e', 3));

@@ -15,7 +15,7 @@ namespace ChessTests.ModelsTests.ChessModelsTests
         {
             string expected = "White Bishop X: 1, Y: 3";
             GameBoard gameBoard = new GameBoard();
-            PlayerConfiguration playerConfiguration = new PlayerConfiguration(gameBoard);
+            ChessesConfiguration playerConfiguration = new ChessesConfiguration(gameBoard);
             ChessGame game = new ChessGame(new HumanPlayer("Vasya", ChessColor.White, playerConfiguration),
                 new HumanPlayer("Petya", ChessColor.Black, playerConfiguration), gameBoard);
             game.MakeStep(new ChessPosition('b', 2), new ChessPosition('b', 4));
@@ -30,7 +30,7 @@ namespace ChessTests.ModelsTests.ChessModelsTests
         {
             string expected = "White Bishop X: 7, Y: 5";
             GameBoard gameBoard = new GameBoard();
-            PlayerConfiguration playerConfiguration = new PlayerConfiguration(gameBoard);
+            ChessesConfiguration playerConfiguration = new ChessesConfiguration(gameBoard);
             ChessGame game = new ChessGame(new HumanPlayer("Vasya", ChessColor.White, playerConfiguration),
                 new HumanPlayer("Petya", ChessColor.Black, playerConfiguration), gameBoard);
             game.MakeStep(new ChessPosition('d', 2), new ChessPosition('d', 4));
@@ -45,7 +45,7 @@ namespace ChessTests.ModelsTests.ChessModelsTests
         {
             string expected = "Black Bishop X: 8, Y: 6";
             GameBoard gameBoard = new GameBoard();
-            PlayerConfiguration playerConfiguration = new PlayerConfiguration(gameBoard);
+            ChessesConfiguration playerConfiguration = new ChessesConfiguration(gameBoard);
             ChessGame game = new ChessGame(new HumanPlayer("Vasya", ChessColor.White, playerConfiguration),
                 new HumanPlayer("Petya", ChessColor.Black, playerConfiguration), gameBoard);
             game.MakeStep(new ChessPosition('d', 2), new ChessPosition('d', 4));
@@ -61,7 +61,7 @@ namespace ChessTests.ModelsTests.ChessModelsTests
         {
             string expected = "Black Bishop X: 3, Y: 5";
             GameBoard gameBoard = new GameBoard();
-            PlayerConfiguration playerConfiguration = new PlayerConfiguration(gameBoard);
+            ChessesConfiguration playerConfiguration = new ChessesConfiguration(gameBoard);
             ChessGame game = new ChessGame(new HumanPlayer("Vasya", ChessColor.White, playerConfiguration),
                 new HumanPlayer("Petya", ChessColor.Black, playerConfiguration), gameBoard);
             game.MakeStep(new ChessPosition('d', 2), new ChessPosition('d', 4));
@@ -76,7 +76,7 @@ namespace ChessTests.ModelsTests.ChessModelsTests
         public void BishopMovement_InvalidDirectionMovement_ThrowsArgumentException()
         {
             GameBoard gameBoard = new GameBoard();
-            PlayerConfiguration playerConfiguration = new PlayerConfiguration(gameBoard);
+            ChessesConfiguration playerConfiguration = new ChessesConfiguration(gameBoard);
             ChessGame game = new ChessGame(new HumanPlayer("Vasya", ChessColor.White, playerConfiguration),
                 new HumanPlayer("Petya", ChessColor.Black, playerConfiguration), gameBoard);
             game.MakeStep(new ChessPosition('d', 2), new ChessPosition('d', 4));

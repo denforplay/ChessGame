@@ -15,7 +15,7 @@ namespace ChessTests.ModelsTests.ChessModelsTests
         {
             string expected = "White Castle X: 1, Y: 4";
             GameBoard gameBoard = new GameBoard();
-            PlayerConfiguration playerConfiguration = new PlayerConfiguration(gameBoard);
+            ChessesConfiguration playerConfiguration = new ChessesConfiguration(gameBoard);
             ChessGame game = new ChessGame(new HumanPlayer("Vasya", ChessColor.White, playerConfiguration),
                 new HumanPlayer("Petya", ChessColor.Black, playerConfiguration), gameBoard);
             game.MakeStep(new ChessPosition('a', 2), new ChessPosition('a', 4));
@@ -32,7 +32,7 @@ namespace ChessTests.ModelsTests.ChessModelsTests
         {
             string expected = "White Castle X: 2, Y: 4";
             GameBoard gameBoard = new GameBoard();
-            PlayerConfiguration playerConfiguration = new PlayerConfiguration(gameBoard);
+            ChessesConfiguration playerConfiguration = new ChessesConfiguration(gameBoard);
             ChessGame game = new ChessGame(new HumanPlayer("Vasya", ChessColor.White, playerConfiguration),
                 new HumanPlayer("Petya", ChessColor.Black, playerConfiguration), gameBoard);
             game.MakeStep(new ChessPosition('a', 2), new ChessPosition('a', 4));
@@ -51,7 +51,7 @@ namespace ChessTests.ModelsTests.ChessModelsTests
         public void CastleMovement_InvalidMovement_ThrowsArgumentException()
         {
             GameBoard gameBoard = new GameBoard();
-            PlayerConfiguration playerConfiguration = new PlayerConfiguration(gameBoard);
+            ChessesConfiguration playerConfiguration = new ChessesConfiguration(gameBoard);
             ChessGame game = new ChessGame(new HumanPlayer("Vasya", ChessColor.White, playerConfiguration),
                 new HumanPlayer("Petya", ChessColor.Black, playerConfiguration), gameBoard);
             game.MakeStep(new ChessPosition('a', 2), new ChessPosition('a', 4));

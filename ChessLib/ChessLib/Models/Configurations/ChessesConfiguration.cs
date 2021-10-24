@@ -4,7 +4,10 @@ using System.Collections.Generic;
 
 namespace ChessLib.Models.Configurations
 {
-    public sealed class PlayerConfiguration
+    /// <summary>
+    /// Represents chesses configuration
+    /// </summary>
+    public sealed class ChessesConfiguration
     {
         private const int BLACK_PAWN_VERTICAL = 6;
         private const int BLACK_BACK_ROW = 7;
@@ -12,8 +15,17 @@ namespace ChessLib.Models.Configurations
         private const int WHITE_BACK_ROW = 0;
         private GameBoard _gameBoard;
         private Dictionary<ChessColor, List<ChessBase>> _chessSets = new Dictionary<ChessColor, List<ChessBase>>();
+
+        /// <summary>
+        /// Sets of different color chesses
+        /// </summary>
         public Dictionary<ChessColor, List<ChessBase>> ChessSet => _chessSets;
-        public PlayerConfiguration(GameBoard gameBoard)
+
+        /// <summary>
+        /// Chesses configuration constructor
+        /// </summary>
+        /// <param name="gameBoard">Game board</param>
+        public ChessesConfiguration(GameBoard gameBoard)
         {
             _gameBoard = gameBoard;
             _chessSets[ChessColor.White] = new List<ChessBase>();
@@ -22,6 +34,10 @@ namespace ChessLib.Models.Configurations
             ConfigureChesses(ChessColor.Black);
         }
 
+        /// <summary>
+        /// Configure chesses
+        /// </summary>
+        /// <param name="chessColor">Chess color to configure</param>
         private void ConfigureChesses(ChessColor chessColor)
         {
             int pawnVertical = chessColor == ChessColor.Black ? BLACK_PAWN_VERTICAL : WHITE_PAWN_VERTICAL;

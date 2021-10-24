@@ -35,7 +35,7 @@ namespace ChessLib.Models.Players
         /// Chess player constructor
         /// </summary>
         /// <param name="chessColor">Chess color of chess player</param>
-        public HumanPlayer(string playerName, ChessColor chessColor, PlayerConfiguration playerConfig)
+        public HumanPlayer(string playerName, ChessColor chessColor, ChessesConfiguration playerConfig)
         {
             if (string.IsNullOrEmpty(playerName))
             {

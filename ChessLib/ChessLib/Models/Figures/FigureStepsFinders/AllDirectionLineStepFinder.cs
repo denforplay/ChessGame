@@ -2,7 +2,10 @@
 
 namespace ChessLib.Models.Figures.FigureMovements
 {
-    public sealed class AllDirectionLineMovement : IMovement
+    /// <summary>
+    /// Represents class for finding all direction line possible steps for chess figure
+    /// </summary>
+    public sealed class AllDirectionLineStepFinder : IStepFinder
     {
         public List<ChessPosition> GetPossibleSteps(ChessBase chessToMove, Vector2<int>[] moveDirections, GameBoard gameBoard)
         {

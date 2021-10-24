@@ -10,6 +10,9 @@ namespace ChessLib.Models.Figures
     /// </summary>
     public sealed class Pawn : ChessBase
     {
+        /// <summary>
+        /// Pawn start position
+        /// </summary>
         public ChessPosition StartPosition { get; private set; }
 
         /// <summary>
@@ -18,12 +21,16 @@ namespace ChessLib.Models.Figures
         /// <param name="otherChess">Pawn from which copy info</param>
         public Pawn(Pawn otherChess) : base(otherChess)
         {
-            _movement = new PawnMovement();
+            _movement = new PawnStepFinder();
         }
 
+        /// <summary>
+        /// Method to set pawn first step state
+        /// </summary>
+        /// <param name="isFirstStep">State of pawn first step</param>
         public void SetFirstStep(bool isFirstStep)
         {
-            (_movement as PawnMovement).IsFirstStep = isFirstStep;
+            (_movement as PawnStepFinder).IsFirstStep = isFirstStep;
         }
 
         /// <summary>
@@ -34,7 +41,7 @@ namespace ChessLib.Models.Figures
         public Pawn(ChessPosition startPosition, ChessColor color) : base(startPosition, color)
         {
             StartPosition = new ChessPosition(startPosition.Horizontal, startPosition.Vertical);
-            _movement = new PawnMovement();
+            _movement = new PawnStepFinder();
         }
 
         protected override void InitializeMoveDirections()

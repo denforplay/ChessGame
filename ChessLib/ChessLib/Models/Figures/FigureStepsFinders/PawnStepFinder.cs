@@ -2,8 +2,11 @@
 
 namespace ChessLib.Models.Figures.FigureMovements
 {
-    public sealed class PawnMovement : IMovement
+    public sealed class PawnStepFinder : IStepFinder
     {
+        /// <summary>
+        /// Field that contains information about first step of pawn
+        /// </summary>
         public bool IsFirstStep = true;
 
         public List<ChessPosition> GetPossibleSteps(ChessBase chessToMove, Vector2<int>[] moveDirections, GameBoard gameBoard)

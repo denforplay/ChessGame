@@ -13,7 +13,7 @@ namespace ChessLib.Models.Figures
         private ChessColor _chessColor;
         private ChessPosition _currentChessPosition;
         protected Vector2<int>[] _moveDirections;
-        protected IMovement _movement;
+        protected IStepFinder _movement;
 
         /// <summary>
         /// Represents current chess color.
@@ -38,6 +38,7 @@ namespace ChessLib.Models.Figures
         /// <summary>
         /// Base chess constructor
         /// </summary>
+        /// <param name="startPosition">Chess figure start position</param>
         /// <param name="color">Chess color</param>
         public ChessBase(ChessPosition startPosition, ChessColor color)
         {
@@ -57,18 +58,23 @@ namespace ChessLib.Models.Figures
             InitializeMoveDirections();
         }
 
-        public List<ChessPosition> GetPossibleSteps(GameBoard gameBoard) => _movement.GetPossibleSteps(this, _moveDirections, gameBoard);
+        /// <summary>
+        /// Method calculating steps which figure can choose
+        /// </summary>
+        /// <param name="gameBoard">Game board</param>
+        /// <returns>List of possible figure steps</returns>
+        public virtual List<ChessPosition> GetPossibleSteps(GameBoard gameBoard) => _movement.GetPossibleSteps(this, _moveDirections, gameBoard);
 
         /// <summary>
         /// Chess move method
         /// </summary>
-        /// <param name="chessPosition">Where move chess position</param>
+        /// <param name="chessPosition">Where to move chess position</param>
         public virtual void Move(ChessPosition nextPosition, GameBoard gameBoard)
         {
             if (GetPossibleSteps(gameBoard).Contains(nextPosition))
             {
-                if (_movement is PawnMovement)
-                    (_movement as PawnMovement).IsFirstStep = false;
+                if (_movement is PawnStepFinder)
+                    (_movement as PawnStepFinder).IsFirstStep = false;
 
                 gameBoard.BoardCells[CurrentPosition.Horizontal - 1, CurrentPosition.Vertical - 1].SetChess(new EmptyChess(CurrentPosition, ChessColor.None));
 
@@ -86,6 +92,9 @@ namespace ChessLib.Models.Figures
             }
         }
 
+        /// <summary>
+        /// Initiallize chess move directions
+        /// </summary>
         protected abstract void InitializeMoveDirections();
 
         /// <summary>

@@ -41,5 +41,6 @@ namespace ChessTests.ModelsTests
             game.MakeStep(new ChessPosition('c', 1), new ChessPosition('d', 2));
             Assert.Equal(GameState.ACTIVE_GAME, game.GameState);
         }
+
     }
 }

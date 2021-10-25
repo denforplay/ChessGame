@@ -42,6 +42,11 @@ namespace ChessLib.Models.Players
                 throw new ArgumentNullException(nameof(playerName));
             }
 
+            if (playerConfig is null)
+            {
+                throw new ArgumentNullException(nameof(playerConfig));
+            }
+
             _playerName = playerName;
             _chesses = playerConfig.ChessSet[chessColor];
             _playerChessColor = chessColor;

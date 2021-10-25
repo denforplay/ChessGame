@@ -47,6 +47,7 @@ namespace ChessLib.Models.Game
                 _lastRemovedChess = chess;
                 RemovePlayerChess(chess);
             };
+
             _gameLogger.Log($"Game started beyong {player1} and {player2}");
         }
 
@@ -57,6 +58,12 @@ namespace ChessLib.Models.Game
         /// <param name="toPosition">Move chess to this position</param>
         public void MakeStep(ChessPosition fromPositionChess, ChessPosition toPosition)
         {
+            if (_gameState == GameState.BLACK_UNDER_MATE || _gameState == GameState.WHITE_UNDER_MATE)
+            {
+                _gameLogger.Log($"{_currentTurnPlayer} move {_currentTurnPlayer.TakenChess} to {toPosition}");
+                return;
+            }
+
             _currentTurnPlayer.TakeChessFigure(fromPositionChess);
             _gameLogger.Log($"{_currentTurnPlayer} move {_currentTurnPlayer.TakenChess} to {toPosition}");
             _currentTurnPlayer.MoveChess(toPosition, _gameBoard);
@@ -65,7 +72,6 @@ namespace ChessLib.Models.Game
                 UnmakeStep(toPosition, fromPositionChess);
                 return;
             }
-
 
             _currentTurnPlayer = _currentTurnPlayer == _whitePlayer ? _blackPlayer : _whitePlayer;
 
@@ -79,20 +85,12 @@ namespace ChessLib.Models.Game
             }
 
             if (IsKingUnderAttack(_currentTurnPlayer))
-            {
                 if (_currentTurnPlayer.PlayerChessColor == ChessColor.Black)
-                {
                     _gameState = GameState.BLACK_UNDER_CHECK;
-                }
                 else
-                {
                     _gameState = GameState.WHITE_UNDER_CHECK;
-                }
-            }
             else
-            {
                 _gameState = GameState.ACTIVE_GAME;
-            }
         }
 
         /// <summary>
@@ -133,13 +131,9 @@ namespace ChessLib.Models.Game
         private void RemovePlayerChess(ChessBase chess)
         {
             if (chess.ChessColor == ChessColor.White)
-            {
                 _whitePlayer.RemoveChess(chess);
-            }
             else
-            {
                 _blackPlayer.RemoveChess(chess);
-            }
         }
 
         /// <summary>

@@ -29,6 +29,12 @@ namespace ChessLib.Models
             InitializeBoardCells();
         }
 
+        /// <summary>
+        /// Method to checks if position is on board
+        /// </summary>
+        /// <param name="horizontal">Horizontal position</param>
+        /// <param name="vertical">Vertical position</param>
+        /// <returns></returns>
         public bool IsPositionOnBoard(int horizontal, int vertical)
         {
             return horizontal >= 0 && horizontal < BOARD_SIZE && vertical >= 0 && vertical < BOARD_SIZE;
@@ -59,6 +65,15 @@ namespace ChessLib.Models
                     _boardCells[row, col] = boardCell;
                 }
             }
+        }
+
+        /// <summary>
+        /// Returns a string that represents game board.
+        /// </summary>
+        /// <returns>A string that represents game board</returns>
+        public override string ToString()
+        {
+            return "Chess game board";
         }
     }
 }
